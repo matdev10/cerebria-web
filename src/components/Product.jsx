@@ -1,4 +1,4 @@
-import productImage from '../assets/img/producto.png'
+import productImage from '../assets/img/hero-cerebria.png'
 import '../style/product.css'
 import { useEffect, useRef } from 'react'
 
