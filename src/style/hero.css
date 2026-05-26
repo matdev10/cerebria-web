@@ -107,11 +107,13 @@
   border-radius: 34px;
   font-family: 'Manrope', sans-serif;
 
+  .hero-info{
   background: linear-gradient(
     135deg,
-    rgba(255,255,255,.16),
-    rgba(255,255,255,.06)
+    rgba(255,255,255,.22),
+    rgba(255,255,255,.08)
   );
+}
 
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -204,10 +206,19 @@
 
 .hero-info strong{
   display: block;
-  color: #f3dfa2;
-  font-size: .92rem;
+
+  color: #ffe7a0;
+
+  font-size: .95rem;
   font-weight: 900;
   line-height: 1.2;
+
+  letter-spacing: .3px;
+
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.18),
+    0 2px 8px rgba(0,0,0,.38),
+    0 0 12px rgba(255,221,120,.18);
 }
 
 /* =========================
