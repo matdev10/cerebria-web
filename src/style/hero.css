@@ -9,9 +9,6 @@
   isolation: isolate;
 }
 
-
-
-
 .hero-card{
   width: min(78%, 1120px);
   min-height: 450px;
@@ -36,7 +33,19 @@
   box-shadow: 0 24px 60px rgba(0,0,0,.10);
 }
 
-
+.hero-card::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,.48) 0%,
+    rgba(0,0,0,.22) 45%,
+    rgba(0,0,0,.04) 100%
+  );
+  pointer-events: none;
+}
 
 .hero-content{
   position: absolute;
