@@ -354,6 +354,7 @@
   .hero-card{
     border-radius: 24px;
     padding: 36px 22px 0;
+    margin-top: -20px;
 
     background-size:
       cover,
