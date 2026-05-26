@@ -77,22 +77,19 @@
 .product-image-box{
   background: transparent;
   box-shadow: none;
-
   width: 420px;
   height: 680px;
-
   border-radius: 38px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  overflow: hidden;
+  overflow: visible;
 }
+
 .product-image-box img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
 }
 
