@@ -1,0 +1,263 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Riot&display=swap');
+
+/* =========================
+   LIFESTYLE PREMIUM
+========================= */
+.lifestyle{
+  position: relative;
+  overflow: hidden;
+  padding: 130px 0;
+  background: radial-gradient(circle at top left, rgba(143, 214, 210, 0.18), transparent 35%), radial-gradient(circle at bottom right, rgba(120, 196, 223, 0.12), transparent 40%), linear-gradient(180deg, #f8f8f6 0%, #001515 100%);
+}
+.lifestyle::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,.10),
+      transparent 42%
+    );
+  pointer-events: none;
+}
+.lifestyle::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.18), transparent 45%);
+  pointer-events: none;
+}
+.lifestyle-container{
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 1180px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 90px;
+  align-items: center;
+}
+.lifestyle-content span{
+  display: inline-block;
+  color: #1d6f8f;
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.lifestyle-content h2{
+  max-width: 560px;
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  margin: 14px 0 24px;
+  color: #151515;
+  line-height: 1.05;
+  letter-spacing: -2px;
+}
+.lifestyle-content > p{
+  max-width: 610px;
+  color: rgba(30,30,30,.62);
+  line-height: 1.9;
+  font-size: 1.08rem;
+}
+
+
+
+/* =========================
+   frase imagen*/
+.lifestyle-image-wrapper{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 34px;
+}
+
+.memory-phrase{
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  z-index: 3;
+  font-size: 3.5rem;
+  font-family: 'Protest Riot', cursive;
+  color: #d67b19;
+  white-space: nowrap;
+  text-shadow: 0 4px 14px rgba(0,0,0,.08);
+}
+
+.memory-phrase::after{
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 8px;
+  bottom: -6px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #ff7700, transparent);
+  opacity: .65;
+}
+/* mobil*/
+@media (max-width: 768px){
+  .lifestyle-image-wrapper{
+    padding-top: 48px;
+  }
+
+  .memory-phrase{
+    top: 4px;
+    font-size: 2.2rem;
+    white-space: nowrap;
+  }
+}
+
+
+
+
+/* =========================
+   IMAGE PREMIUM*/
+
+.lifestyle-image{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lifestyle-image img{
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 42px;
+  object-fit: cover;
+}
+/* Glow de fondo */
+.lifestyle-image::before{
+  content: "";
+  position: absolute;
+  width: 115%;
+  height: 115%;
+  border-radius: 50px;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255,255,255,.45),
+      rgba(255,255,255,.08),
+      transparent 72%
+    );
+
+  filter: blur(18px);
+  z-index: 0;
+}
+
+
+
+
+/* =========================
+   PUNTOS PREMIUM*/
+.lifestyle-points{
+  margin-top: 40px;
+  display: grid;
+  gap: 18px;
+}
+.point-card{
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,0.72);
+  padding: 24px 28px 24px 32px;
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,0.85);
+  box-shadow:
+    0 18px 45px rgba(0,0,0,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.85);
+  backdrop-filter: blur(14px);
+}
+.point-card::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 24%;
+  width: 6px;
+  height: 52%;
+  border-radius: 0 20px 20px 0;
+  background: linear-gradient(180deg, #17b8c7, #1d6f8f);
+}
+.point-card:hover{
+  transform: translateX(8px);
+  box-shadow:
+    0 26px 58px rgba(0,0,0,0.13),
+    inset 0 1px 0 rgba(255,255,255,0.95);
+}
+.point-animate{
+  opacity: 0;
+  transform: translateX(-45px);
+  animation: pointSlideIn .9s cubic-bezier(.22,1,.36,1) forwards;
+}
+.point-animate:nth-child(1){ animation-delay: .15s; }
+.point-animate:nth-child(2){ animation-delay: .35s; }
+.point-animate:nth-child(3){ animation-delay: .55s; }
+
+
+
+
+
+/* =========================
+   MEDIA QUERIES*/
+@keyframes pointSlideIn{
+  0%{
+    opacity: 0;
+    transform: translateX(-45px);
+    filter: blur(6px);
+  }
+
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+@media (max-width: 900px){ .lifestyle{ padding: 90px 0; }
+
+  .lifestyle-container{
+    grid-template-columns: 1fr;
+    gap: 56px; 
+  }
+  .lifestyle-content{
+    text-align: center;
+  }
+  .lifestyle-content h2,
+  .lifestyle-content > p{
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .lifestyle-image{
+    justify-content: center;
+  }
+  .point-card:hover{
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 992px){ .lifestyle-container{ grid-template-columns: 1fr; }
+  .lifestyle-image{
+    justify-self: center;
+  }
+}
+@media (max-width: 768px){
+  .lifestyle{
+    padding: 80px 0;
+  }
+  .lifestyle-content h2{
+    font-size: 2.1rem;
+  }
+  .lifestyle-image{
+    display: flex;
+    justify-content: center;
+  }
+  .lifestyle-image img{
+    max-width: 340px;
+  }
+}

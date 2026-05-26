@@ -1,0 +1,367 @@
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position: relative;
+  padding: 90px 20px 85px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url('../assets/img/cerebria.fondo.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+}
+
+.hero-card{
+  width: min(78%, 1120px);
+  min-height: 450px;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 30px;
+  overflow: visible;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.52) 0%,
+      rgba(0,0,0,.18) 48%,
+      rgba(0,0,0,.04) 100%
+    ),
+    url('../assets/img/hero-cerebria.png');
+
+  background-repeat: no-repeat;
+  background-size: cover, 100%;
+  background-position: center, 52% 71%;
+
+  box-shadow: 0 24px 60px rgba(0,0,0,.10);
+}
+
+.hero-card::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,.48) 0%,
+    rgba(0,0,0,.22) 45%,
+    rgba(0,0,0,.04) 100%
+  );
+  pointer-events: none;
+}
+
+.hero-content{
+  position: absolute;
+  z-index: 1;
+  left: 58px;
+  top: 85px;
+  max-width: 560px;
+  width: 55%;
+  color: #fff;
+}
+
+.hero-content h1{
+  font-size: clamp(2.4rem, 3.8vw, 3.25rem);
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: -2px;
+  margin-bottom: 18px;
+  text-shadow: 0 8px 22px rgba(0,0,0,.45);
+}
+
+.hero-content p{
+  font-size: 1.08rem;
+  max-width: 500px;
+  line-height: 1.65;
+  font-weight: 600;
+  color: rgba(255,255,255,.92);
+  text-shadow: 0 4px 12px rgba(0,0,0,.28);
+}
+
+/* =========================
+   HERO INFO PREMIUM
+========================= */
+
+.hero-info{
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: -36px;
+  transform: translateX(-50%);
+
+  width: min(70%, 820px);
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 40px;
+
+  padding: 20px 28px;
+  border-radius: 34px;
+  font-family: 'Manrope', sans-serif;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.16),
+    rgba(255,255,255,.06)
+  );
+
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  border: 1px solid rgba(255,255,255,.24);
+
+  box-shadow:
+    0 20px 45px rgba(0,0,0,.16),
+    inset 0 1px 0 rgba(255,255,255,.25),
+    inset 0 -1px 0 rgba(255,255,255,.06);
+}
+
+.hero-info::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.24) 0%,
+    rgba(255,255,255,.05) 35%,
+    transparent 100%
+  );
+
+  pointer-events: none;
+}
+
+.hero-info::after{
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.38),
+    rgba(255,255,255,.04),
+    rgba(255,255,255,.20)
+  );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  pointer-events: none;
+  opacity: .9;
+}
+
+.hero-info div{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-info div::after{
+  content: "";
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 40px;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255,255,255,.24),
+    transparent
+  );
+}
+
+.hero-info div:last-child::after{
+  display: none;
+}
+
+.hero-info span{
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(255,255,255,.58);
+  font-size: .66rem;
+  font-weight: 700;
+}
+
+.hero-info strong{
+  display: block;
+  color: #f3dfa2;
+  font-size: .92rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 992px){
+
+  .hero{
+    padding: 130px 18px 130px;
+  }
+
+  .hero-card{
+    width: 94%;
+    min-height: 500px;
+    border-radius: 32px;
+  }
+
+  .hero-content{
+    left: 42px;
+    top: 80px;
+    width: 62%;
+    max-width: 520px;
+  }
+
+  .hero-content h1{
+    font-size: clamp(2.1rem, 6vw, 3rem);
+  }
+
+  .hero-info{
+    width: min(86%, 820px);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px 0;
+    padding: 24px 26px;
+  }
+
+  .hero-info div:nth-child(2)::after,
+  .hero-info div:nth-child(4)::after{
+    display: none;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px){
+
+  .hero{
+    padding: 115px 14px 70px;
+  }
+
+  .hero-card{
+    width: 100%;
+    min-height: auto;
+    border-radius: 28px;
+    overflow: hidden;
+    padding: 44px 26px 0;
+
+    background-size:
+      cover,
+      180%;
+
+    background-position:
+      center,
+      78% bottom;
+  }
+
+  .hero-card::before{
+    background: linear-gradient(
+      180deg,
+      rgba(0,0,0,.38) 0%,
+      rgba(0,0,0,.18) 35%,
+      rgba(0,0,0,.05) 65%,
+      rgba(0,0,0,.12) 100%
+    );
+  }
+
+  .hero-content{
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    max-width: 360px;
+    padding-bottom: 300px;
+  }
+
+  .hero-content h1{
+    font-size: clamp(2rem, 9vw, 2.65rem);
+    line-height: 1.1;
+    letter-spacing: -1px;
+  }
+
+  .hero-content p{
+    font-size: .98rem;
+    line-height: 1.6;
+  }
+
+  .hero-info{
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+
+    width: 100%;
+    margin: 0 auto -1px;
+
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 0;
+    row-gap: 18px;
+
+    padding: 22px 18px;
+    border-radius: 24px;
+  }
+
+  .hero-info div::after{
+    display: none;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 420px){
+
+  .hero{
+    padding-top: 100px;
+  }
+
+  .hero-card{
+    border-radius: 24px;
+    padding: 36px 22px 0;
+
+    background-size:
+      cover,
+      280%;
+
+    background-position:
+      center,
+      82% bottom;
+  }
+
+  .hero-content{
+    max-width: 300px;
+    padding-bottom: 250px;
+  }
+
+  .hero-content h1{
+    font-size: 1.85rem;
+  }
+
+  .hero-info{
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 22px 20px;
+  }
+}
