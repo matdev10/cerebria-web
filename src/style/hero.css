@@ -9,15 +9,7 @@
   isolation: isolate;
 }
 
-.hero::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url('../assets/img/cerebria.fondo.jpg');
-  background-size: cover;
-  background-position: center;
-  z-index: -2;
-}
+
 
 
 .hero-card{
