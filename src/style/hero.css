@@ -386,7 +386,7 @@
   font-family: 'Neuropol', sans-serif;
   letter-spacing: 1px;
   color: hsl(49, 92%, 56%);
-  font-size: clamp(44px, 5vw, 55px);
+  font-size: clamp(39px, 5vw, 55px);
 }
 
   .hero-content h1{
