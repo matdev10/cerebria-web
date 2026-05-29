@@ -29,10 +29,24 @@
 /* LOGO */
 
 .logo{
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--primary);
-  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+
+}
+
+.logo img{
+  height: 72px;
+  width: auto;
+
+  filter:
+    drop-shadow(0 2px 8px rgba(0, 0, 0, 0.74));
+
+  transition: .25s ease;
+}
+
+.logo img:hover{
+  transform: scale(1.04);
 }
 
 /* LINKS */
@@ -115,31 +129,46 @@
 @media (max-width: 768px){
 
   .navbar{
-    padding: 14px 0;
+    position: sticky;
+    padding: 16px 0;
   }
 
   .navbar-container{
+    width: 92%;
     flex-direction: column;
-    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
   }
 
   .logo{
-    font-size: 1.7rem;
+    margin-left: 0;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .logo img{
+    height: 68px;
   }
 
   .nav-links{
     width: 100%;
     justify-content: center;
-    gap: 18px;
+    gap: 22px;
     flex-wrap: wrap;
+    overflow: visible;
   }
 
   .nav-links a{
     font-size: .9rem;
+    white-space: nowrap;
   }
 
   .nav-btn{
-    padding: 10px 22px;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    padding: 11px 28px;
     font-size: .9rem;
   }
 }
@@ -149,47 +178,24 @@
 ========================= */
 
 @media (max-width: 420px){
-  .nav-links{
-    gap: 14px;
-  }
-  .nav-links a{
-    font-size: .82rem;
-  }
-  .nav-btn{
-    width: 100%;
-    text-align: center;
-  }
-}
 
-
-/* navbar.css */
-@media (max-width: 768px){
-  .navbar{
-    position: sticky;
-    padding: 18px 0;
-  }
   .navbar-container{
-    width: 92%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
+    gap: 12px;
   }
-  .logo{
-    font-size: 1.75rem;
+
+  .logo img{
+    height: 62px;
   }
+
   .nav-links{
-    width: 100%;
-    justify-content: center;
-    gap: 22px;
-    overflow-x: auto;
+    gap: 18px;
   }
+
   .nav-links a{
-    font-size: .9rem;
-    white-space: nowrap;
+    font-size: .86rem;
   }
+
   .nav-btn{
-    padding: 10px 28px;
-    font-size: .9rem;
+    max-width: 340px;
   }
 }

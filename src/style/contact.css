@@ -12,7 +12,6 @@
   width: 90%;
   max-width: 1180px;
   margin: 0 auto;
-
   display: grid;
   grid-template-columns: .95fr 1.05fr;
   gap: 90px;
@@ -22,7 +21,6 @@
 .contact-info span{
   display: inline-block;
   margin-bottom: 14px;
-
   color: var(--primary);
   font-size: .78rem;
   font-weight: 900;
@@ -33,7 +31,6 @@
 .contact-info h2{
   max-width: 520px;
   margin-bottom: 24px;
-
   color: #111;
   font-size: clamp(2.6rem, 4vw, 4rem);
   line-height: .98;
@@ -42,7 +39,6 @@
 
 .contact-info p{
   max-width: 520px;
-
   color: var(--muted);
   font-size: 1.05rem;
   line-height: 1.8;
@@ -82,16 +78,12 @@
   width: 58px;
   height: 58px;
   flex-shrink: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 18px;
-
   background: #f1f8fa;
   color: var(--primary);
-
   font-size: 1.35rem;
 }
 
@@ -108,7 +100,6 @@
 
 .contact-text p{
   margin: 0;
-
   color: #172a33;
   font-size: 1.02rem;
   font-weight: 700;
@@ -118,17 +109,12 @@
 
 .contact-form{
   width: 100%;
-
   padding: 46px;
   border-radius: 36px;
-
   background: rgba(255,255,255,.82);
   border: 1px solid rgba(47,111,143,.08);
-
   backdrop-filter: blur(14px);
-
   box-shadow: 0 30px 80px rgba(20,40,50,.10);
-
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -137,20 +123,14 @@
 .contact-form input,
 .contact-form textarea{
   width: 100%;
-
   padding: 18px 20px;
-
   border: 1px solid rgba(47,111,143,.10);
   border-radius: 18px;
-
   background: rgba(248,251,252,.82);
-
   color: #1d1d1d;
   font-size: 1rem;
   font-family: inherit;
-
   outline: none;
-
   transition: .25s ease;
 }
 

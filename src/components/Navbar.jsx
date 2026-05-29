@@ -1,4 +1,5 @@
 import '../style/navbar.css'
+import logo from '../assets/img/logo.png'
 
 function Navbar() {
   return (
@@ -6,7 +7,7 @@ function Navbar() {
       <div className="navbar-container">
 
         <div className="logo">
-          Cerebria
+          <img src={logo} alt="Cerebria"/>
         </div>
 
         <nav className="nav-links">
