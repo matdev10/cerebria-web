@@ -6,9 +6,12 @@ function Hero() {
       <div className="hero-card">
 
         <div className="hero-content">
-          <h1>
-  <span className="cerebria-font">Cerebria®.</span>
-  Tu mente activa, tu vida plena
+<h1>
+  <span className="cerebria-font">Cerebria®</span>
+
+  <span className="hero-line">
+    Tu mente activa, tu vida plena
+  </span>
 </h1>
           <p>
             Suplemento alimentario con Omega 3, vitaminas y minerales para

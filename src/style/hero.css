@@ -83,6 +83,11 @@
   font-size: 55px;
 }
 
+.hero-line{
+  display: block;
+  margin-top: 10px;
+}
+
 .hero-content h1{
   font-family: 'Manrope', sans-serif;
   font-size: clamp(2.4rem, 3.8vw, 3.25rem);
