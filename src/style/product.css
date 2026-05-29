@@ -174,6 +174,100 @@
   text-decoration: none;
 }
 
+/*boton info nutricion*/
+.nutrition-btn{
+  display: inline-block;
+  background: linear-gradient(135deg, #565555, #050505);
+  color: rgb(255 255 255);
+  padding: 15px 32px;
+  border-radius: 100px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: inherit;
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.18);
+
+  transition: .25s ease;
+}
+
+.nutrition-modal{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+.product-buttons{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+}
+
+.product-btn,
+.nutrition-btn{
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  min-width: unset;
+
+  padding: 15px 32px;
+  border-radius: 100px;
+
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  box-sizing: border-box;
+}
+
+.product-btn{
+  background: linear-gradient(135deg, #565555, #0bd1ea);
+}
+
+.nutrition-btn{
+  background: linear-gradient(135deg, #565555, #050505);
+}
+
+.nutrition-box{
+  position: relative;
+  max-width: 920px;
+  width: 100%;
+}
+
+.nutrition-box img{
+  width: 100%;
+  border-radius: 22px;
+  display: block;
+}
+
+.nutrition-close{
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
 /* =========================
    TABLET
 ========================= */
@@ -267,6 +361,17 @@
 
 @media (max-width: 768px){
 
+  @media (max-width: 768px){
+  .product-buttons{
+    order: 6;
+  }
+
+  .product-btn,
+  .nutrition-btn{
+    max-width: 340px;
+  }
+}
+
   .ingredients{
     width: 100%;
     max-width: 340px;
@@ -294,6 +399,22 @@
 }
 
 @media (max-width: 420px){
+    .product-buttons{
+    order: 6;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nutrition-btn,
+  .product-btn{
+    width: 100%;
+    max-width: 340px;
+    text-align: center;
+  }
+
 
   .ingredients{
     max-width: 300px;
