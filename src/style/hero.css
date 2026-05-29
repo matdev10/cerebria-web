@@ -80,9 +80,11 @@
   font-family: 'Neuropol', sans-serif;
   letter-spacing: 1px;
   color: hsl(49, 92%, 50%);
+  font-size: 55px;
 }
 
 .hero-content h1{
+  font-family: 'Manrope', sans-serif;
   font-size: clamp(2.4rem, 3.8vw, 3.25rem);
   line-height: 1.08;
   font-weight: 900;
@@ -92,6 +94,7 @@
 }
 
 .hero-content p{
+  font-family: 'Manrope', sans-serif;
   font-size: 1.08rem;
   max-width: 500px;
   line-height: 1.65;
@@ -357,7 +360,7 @@
 @media (max-width: 420px){
 
   .hero{
-    padding-top: 100px;
+    padding-top: 70px;
   }
 
   .hero-card{
@@ -378,6 +381,13 @@
     max-width: 300px;
     padding-bottom: 250px;
   }
+  
+  .cerebria-font{
+  font-family: 'Neuropol', sans-serif;
+  letter-spacing: 1px;
+  color: hsl(49, 92%, 56%);
+  font-size: clamp(44px, 5vw, 55px);
+}
 
   .hero-content h1{
     font-size: 1.85rem;
