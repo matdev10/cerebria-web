@@ -74,8 +74,8 @@ function Contact() {
               </div>
 
               <div className="contact-text">
-                <strong>Ubicación chile</strong>
-                <p>Obispo Orrego 678, Ñuñoa. </p>
+                <strong>Ubicación </strong>
+                <p>Santiago, Chile. </p>
               </div>
             </div>
 
