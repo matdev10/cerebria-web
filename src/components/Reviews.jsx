@@ -15,7 +15,22 @@ function Reviews() {
         </div>
 
         <div className="reviews-grid">
+          {/* Testimonio Destacado: Vicente Rodríguez */}
           <article className="review-card featured">
+            <div className="review-stars">★★★★★</div>
+            <p>
+              “Un detalle importante: al parecer me ha ayudado a recuperar mi memoria, 
+              estoy completando mis apuntes y jugando Mahjong en tres tiempos (al levantarme, 
+              después del almuerzo y al acostarme). Resérvame 7 frascos: 5 para mí y 2 para 
+              mi hija mayor que también tiene problemas de memoria.”
+            </p>
+            <div className="review-user">
+              <strong>Vicente Rodríguez</strong>
+              <span>Cliente verificado</span>
+            </div>
+          </article>
+
+          <article className="review-card">
             <div className="review-stars">★★★★★</div>
             <p>
               “Me gustó porque es fácil de tomar y lo incorporé rápido a mi rutina.
