@@ -125,24 +125,24 @@
   grid-template-columns: repeat(4, 1fr);
   column-gap: 40px;
 
-  padding: 20px 28px;
+  padding: 22px 30px;
   border-radius: 34px;
 
-  background: linear-gradient(
-    135deg,
-    rgba(255,255,255,.22),
-    rgba(255,255,255,.10)
-  );
+  background:
+    linear-gradient(
+      135deg,
+      rgba(35,35,35,.30),
+      rgba(255,255,255,.20)
+    );
 
-  backdrop-filter: blur(28px) saturate(140%);
-  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
 
-  border: 1px solid rgba(255,255,255,.28);
+  border: 1px solid rgba(255,255,255,.40);
 
   box-shadow:
-    0 24px 55px rgba(0,0,0,.20),
-    inset 0 1px 0 rgba(255,255,255,.25),
-    inset 0 -1px 0 rgba(255,255,255,.08);
+    0 24px 60px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.35);
 }
 
 .hero-info::before{
@@ -153,7 +153,7 @@
 
   background: linear-gradient(
     180deg,
-    rgba(255,255,255,.24) 0%,
+    rgba(255,255,255,.20) 0%,
     rgba(255,255,255,.05) 35%,
     transparent 100%
   );
@@ -170,9 +170,9 @@
 
   background: linear-gradient(
     135deg,
-    rgba(255,255,255,.38),
-    rgba(255,255,255,.04),
-    rgba(255,255,255,.20)
+    rgba(255,255,255,.45),
+    rgba(255,255,255,.06),
+    rgba(255,255,255,.25)
   );
 
   -webkit-mask:
@@ -183,7 +183,6 @@
   mask-composite: exclude;
 
   pointer-events: none;
-  opacity: .9;
 }
 
 .hero-info div{
@@ -200,13 +199,14 @@
   right: -20px;
   top: 50%;
   transform: translateY(-50%);
+
   width: 1px;
   height: 40px;
 
   background: linear-gradient(
     to bottom,
     transparent,
-    rgba(255,255,255,.24),
+    rgba(255,255,255,.25),
     transparent
   );
 }
@@ -218,26 +218,26 @@
 .hero-info span{
   display: block;
   margin-bottom: 8px;
-  color: rgba(255,255,255,.58);
-  font-size: .66rem;
+
+  color: rgba(255,255,255,.82);
+
+  font-size: .75rem;
   font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
 }
 
 .hero-info strong{
   display: block;
 
-  color: #ffe7a0;
+  color: #ffd978;
 
-  font-size: .95rem;
+  font-size: 1.15rem;
   font-weight: 900;
   line-height: 1.2;
 
-  letter-spacing: .3px;
-
   text-shadow:
-    0 1px 0 rgba(255,255,255,.18),
-    0 2px 8px rgba(0,0,0,.38),
-    0 0 12px rgba(255,221,120,.18);
+    0 2px 10px rgba(0,0,0,.45);
 }
 
 /* =========================
