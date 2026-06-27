@@ -1,5 +1,5 @@
 import '../style/hero.css'
-import heroPremium from '../assets/img/hero-cerebria-premium.png'
+import heroPremium from '../assets/img/hero-cerebria-premium.jpg'
 
 import {
   PillBottle,
