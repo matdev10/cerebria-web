@@ -78,7 +78,7 @@
   background: transparent;
   box-shadow: none;
 
-  width: 420px;
+  width: 527px;
   height: 680px;
 
   border-radius: 38px;
@@ -268,21 +268,72 @@
   cursor: pointer;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* =========================
    TABLET
 ========================= */
 
 @media (max-width: 992px){
+
+  .product{
+    padding: 95px 0;
+  }
+
   .product-container{
+    width: 92%;
     grid-template-columns: 1fr;
+    gap: 55px;
+    text-align: center;
   }
 
   .product-image-box{
-    justify-self: center;
-    width: 100%;
-    max-width: 560px;
+    width: min(520px, 100%);
+    height: 620px;
+    margin: auto;
+  }
+
+  .product-content{
+    max-width: 680px;
+    margin: auto;
+  }
+
+  .ingredients{
+    margin: 0 auto 32px;
+  }
+
+  .product-buttons{
+    align-items: center;
   }
 }
+
 
 /* =========================
    MOBILE
@@ -291,142 +342,170 @@
 @media (max-width: 768px){
 
   .product{
-    padding: 80px 0;
+    padding: 80px 0 95px;
   }
 
   .product-container{
+    width: 90%;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 34px;
+  }
+
+  .product-image-box{
+    display: none;
   }
 
   .product-content{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 100%;
   }
 
   .product-content span{
     order: 1;
+    font-size: .76rem;
+    letter-spacing: 3px;
   }
 
   .product-content h2{
     order: 2;
-    font-size: 2.4rem;
-    line-height: 1.1;
+    font-size: clamp(2rem, 8vw, 2.6rem);
+    margin: 14px 0 18px;
   }
 
-  .product-content > p{
+  .product-content p{
     order: 3;
+    font-size: .98rem;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 350px;
   }
 
-  /* ocultar imagen desktop */
-  .product-image-box{
-    display: none;
-  }
-
-  /* imagen mobile */
   .product-image-mobile{
     order: 4;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    margin: 20px 0;
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto 26px;
+    border-radius: 28px;
+    overflow: hidden;
   }
 
   .product-image-mobile img{
     width: 100%;
-    max-width: 400px;
-
-    height: auto;
-    object-fit: contain;
-
-    filter: drop-shadow(
-      0 18px 24px rgba(0,0,0,0.22)
-    );
+    display: block;
+    border-radius: inherit;
   }
 
   .ingredients{
     order: 5;
-    padding: 24px;
-  }
-
-  .product-btn{
-    order: 6;
-    align-self: center;
-  }
-
-}
-
-@media (max-width: 768px){
-
-  @media (max-width: 768px){
-  .product-buttons{
-    order: 6;
-  }
-
-  .product-btn,
-  .nutrition-btn{
-    max-width: 340px;
-  }
-}
-
-  .ingredients{
     width: 100%;
-    max-width: 340px;
-    padding: 18px 16px;
-    margin: 0 auto 26px;
+    max-width: 360px;
+    padding: 24px 18px;
+    margin: 0 auto 28px;
   }
 
   .ingredients h3{
-    font-size: 1.35rem;
-    margin-bottom: 14px;
+    font-size: 1.25rem;
+    margin-bottom: 18px;
   }
 
   .ingredients ul{
     font-size: 1.05rem;
-    gap: 10px;
+    gap: 14px;
   }
 
   .ingredients li{
-    line-height: 1.35;
+    text-align: left;
+    line-height: 1.45;
   }
 
-  .ingredients li::before{
-    margin-right: 8px;
+  .product-buttons{
+    order: 6;
+    width: 100%;
+    max-width: 360px;
+    gap: 14px;
+  }
+
+  .product-btn,
+  .nutrition-btn{
+    width: 100%;
+    max-width: 360px;
+    padding: 14px 22px;
+    font-size: .95rem;
+  }
+
+  .nutrition-box{
+    max-width: 95vw;
+  }
+
+  .nutrition-close{
+    top: -12px;
+    right: -8px;
   }
 }
 
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
 @media (max-width: 420px){
-    .product-buttons{
-    order: 6;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    align-items: center;
-    width: 100%;
+
+  .product{
+    padding: 70px 0 85px;
   }
 
-  .nutrition-btn,
-  .product-btn{
-    width: 100%;
-    max-width: 340px;
-    text-align: center;
+  .product-container{
+    width: 92%;
+    gap: 28px;
   }
 
+  .product-content h2{
+    font-size: 2rem;
+  }
+
+  .product-content p{
+    font-size: .93rem;
+    max-width: 315px;
+  }
+
+  .product-image-mobile{
+    max-width: 320px;
+    border-radius: 24px;
+  }
 
   .ingredients{
-    max-width: 300px;
-    padding: 16px 12px;
+    max-width: 320px;
+    padding: 22px 16px;
   }
 
   .ingredients h3{
-    font-size: 1.2rem;
+    font-size: 1.15rem;
   }
 
   .ingredients ul{
-    font-size: .95rem;
-    gap: 9px;
+    font-size: 1rem;
+  }
+
+  .product-buttons{
+    max-width: 320px;
+  }
+
+  .product-btn,
+  .nutrition-btn{
+    max-width: 320px;
+    padding: 14px 18px;
+  }
+
+  .nutrition-modal{
+    padding: 16px;
+  }
+
+  .nutrition-box img{
+    border-radius: 16px;
   }
 }

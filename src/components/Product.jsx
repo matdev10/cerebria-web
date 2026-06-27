@@ -1,5 +1,5 @@
-import productImage from '../assets/img/producto.png'
-import nutritionImage from '../assets/img/etiqueta.jpg'
+import productImage from '../assets/img/img-producto.png'
+import nutritionImage from '../assets/img/Cerebria-Etiqueta_page-0001.jpg'
 
 import '../style/product.css'
 

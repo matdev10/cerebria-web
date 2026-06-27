@@ -8,10 +8,9 @@
   top: 0;
   left: 0;
   z-index: 1000;
-  padding: 18px 0;
-  background: rgba(255,255,255,0.72);
+  background: rgb(255, 255, 255);
   backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,0.35);
+  /*border-bottom: 1px solid rgba(255,255,255,0.35);*/
   box-shadow:
     0 8px 30px rgba(0,0,0,0.04);
 }
@@ -90,7 +89,7 @@
 /* BOTON */
 
 .nav-btn{
-  background: linear-gradient(135deg, #565555, #0bd1ea);
+  background: linear-gradient(135deg, #000000, #0086ff);
   color: rgb(255 255 255);
   padding: 12px 24px;
   border-radius: 999px;
