@@ -16,7 +16,7 @@ function Hero() {
         <img
           className="hero-full-image"
           alt="Cerebria suplemento alimentario"
-          src="/src/assets/img/hero-cerebria-premium.jpg"
+          src={heroPremium}
         />
 
         <div className="hero-copy">
