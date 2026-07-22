@@ -39,7 +39,9 @@ function Hero() {
 
       <div className="hero-info">
         <div className="hero-info-item">
-          <PillBottle className="hero-icon" />
+          <div className="hero-icon-wrap">
+            <PillBottle className="hero-icon" />
+          </div>
           <div>
             <strong>Formato</strong>
             <small>Jarabe líquido 200ml</small>
@@ -47,7 +49,9 @@ function Hero() {
         </div>
 
         <div className="hero-info-item">
-          <Droplets className="hero-icon" />
+          <div className="hero-icon-wrap">
+            <Droplets className="hero-icon" />
+          </div>
           <div>
             <strong>Dosis</strong>
             <small>10ml diarios</small>
@@ -55,7 +59,9 @@ function Hero() {
         </div>
 
         <div className="hero-info-item">
-          <CalendarDays className="hero-icon" />
+          <div className="hero-icon-wrap">
+            <CalendarDays className="hero-icon" />
+          </div>
           <div>
             <strong>Rutina</strong>
             <small>Uso diario</small>
@@ -63,7 +69,9 @@ function Hero() {
         </div>
 
         <div className="hero-info-item">
-          <Users className="hero-icon" />
+          <div className="hero-icon-wrap">
+            <Users className="hero-icon" />
+          </div>
           <div>
             <strong>Público</strong>
             <small>Adultos</small>

@@ -10,6 +10,7 @@ function WhatsAppButton() {
       rel="noreferrer"
     >
       <FaWhatsapp />
+      <span className="wa-tooltip">¿Necesitas ayuda?</span>
     </a>
   )
 }
