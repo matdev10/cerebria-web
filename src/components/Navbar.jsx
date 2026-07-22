@@ -17,7 +17,6 @@ function Navbar() {
           <a href="/#inicio">Inicio</a>
           <a href="/#beneficios">Beneficios</a>
           <Link to="/producto">Producto</Link>
-          <a href="/#contacto">Contacto</a>
         </nav>
 
         <div className="navbar-actions">
@@ -25,10 +24,6 @@ function Navbar() {
             🛒 Carrito
             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </Link>
-
-          <a href="/#contacto" className="nav-btn">
-            Consultar
-          </a>
         </div>
       </div>
     </header>
