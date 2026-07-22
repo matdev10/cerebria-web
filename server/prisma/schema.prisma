@@ -1,0 +1,191 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  price       Int
+  stock       Int      @default(0)
+  imageUrl    String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orderItems OrderItem[]
+}
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String?
+  email     String
+  phone     String
+  rut       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders Order[]
+
+  @@index([email])
+  @@index([phone])
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  orderNumber String      @unique
+  customerId  Int
+  status      OrderStatus @default(PENDING_PAYMENT)
+
+  shippingMethod ShippingMethod
+
+  shippingRegionId   String?
+  shippingRegion     String?
+  shippingProvinceId String?
+  shippingProvince   String?
+  shippingCommuneId  String?
+  shippingCommune    String?
+  shippingAddress    String
+  shippingNotes      String?
+  shippingCost       Int     @default(0)
+
+  subtotal Int
+  total    Int
+  currency String @default("CLP")
+
+  paymentProvider     PaymentProvider @default(MERCADO_PAGO)
+  paymentPreferenceId String?         @unique
+  paymentId           String?         @unique
+  paymentStatus       String?
+  paymentStatusDetail String?
+  paymentLink         String?
+
+  stockUpdated     Boolean @default(false)
+  confirmationSent Boolean @default(false)
+
+  paidAt    DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  customer Customer    @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  items    OrderItem[]
+
+  @@index([customerId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id        Int @id @default(autoincrement())
+  orderId   Int
+  productId Int
+
+  productName     String
+  productImageUrl String?
+
+  quantity  Int
+  unitPrice Int
+  subtotal  Int
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PAID
+  PAYMENT_REJECTED
+  PREPARING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentProvider {
+  MERCADO_PAGO
+}
+
+enum ShippingMethod {
+  SANTIAGO_DELIVERY
+  CHILEXPRESS_PAY_ON_DELIVERY
+}
+
+model GeoCountry {
+  id       String  @id @default(cuid())
+  isoCode  String  @unique
+  name     String
+  isActive Boolean @default(true)
+
+  regions GeoRegion[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("geo_countries")
+}
+
+model GeoRegion {
+  id       String  @id @default(cuid())
+  code     String
+  name     String
+  isActive Boolean @default(true)
+
+  countryId String
+  country   GeoCountry @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  provinces GeoProvince[]
+  communes  GeoCommune[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([countryId, code])
+  @@map("geo_regions")
+}
+
+model GeoProvince {
+  id       String  @id @default(cuid())
+  code     String
+  name     String
+  isActive Boolean @default(true)
+
+  regionId String
+  region   GeoRegion @relation(fields: [regionId], references: [id], onDelete: Cascade)
+
+  communes GeoCommune[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([regionId, code])
+  @@map("geo_provinces")
+}
+
+model GeoCommune {
+  id       String  @id @default(cuid())
+  code     String
+  name     String
+  isActive Boolean @default(true)
+
+  regionId String
+  region   GeoRegion @relation(fields: [regionId], references: [id], onDelete: Cascade)
+
+  provinceId String
+  province   GeoProvince @relation(fields: [provinceId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([provinceId, code])
+  @@map("geo_communes")
+}

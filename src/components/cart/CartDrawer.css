@@ -1,0 +1,153 @@
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 90;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 390px;
+  max-width: 92%;
+  height: 100vh;
+
+  background: #ffffff;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: -20px 0 50px rgba(15, 23, 42, 0.18);
+  transition: right 0.3s ease;
+}
+
+.cart-drawer.open {
+  right: 0;
+}
+
+.cart-header {
+  padding: 24px;
+  border-bottom: 1px solid #e2e8f0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cart-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #0f172a;
+}
+
+.cart-header button {
+  border: none;
+  background: #f1f5f9;
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
+.cart-body {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.drawer-item {
+  padding: 16px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.drawer-item h4 {
+  margin: 0 0 8px;
+  color: #0f172a;
+}
+
+.drawer-item p {
+  margin: 0;
+  color: #64748b;
+}
+
+.cart-footer {
+  padding: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.cart-footer h3 {
+  margin: 0 0 16px;
+  color: #0f172a;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+
+  background: #0f172a;
+  color: #fff;
+
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+.drawer-price {
+  margin: 0 0 12px;
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.drawer-quantity {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.drawer-quantity button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  background: #f1f5f9;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.drawer-quantity span {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.drawer-subtotal {
+  margin: 8px 0;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.drawer-remove {
+  margin-top: 8px;
+  border: none;
+  background: transparent;
+  color: #dc2626;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.secondary-btn {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 700;
+  cursor: pointer;
+}

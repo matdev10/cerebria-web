@@ -1,17 +1,17 @@
-import '../style/hero.css'
-import heroPremium from '../assets/img/hero-cerebria-premium.jpg'
+import "../style/hero.css";
+import heroPremium from "../assets/img/hero-cerebria-premium.jpg";
+import { Link } from "react-router-dom";
 
 import {
   PillBottle,
   Droplets,
   CalendarDays,
-  Users
-} from 'lucide-react'
+  Users,
+} from "lucide-react";
 
 function Hero() {
   return (
     <section className="hero" id="inicio">
-
       <img
         className="hero-full-image"
         src={heroPremium}
@@ -27,6 +27,12 @@ function Hero() {
         <p>
           Suplemento alimentario con Omega 3, vitaminas y minerales para tu salud cerebral.
         </p>
+
+        <div className="hero-actions">
+          <Link to="/producto" className="hero-buy-btn">
+            Comprar Cerebria
+          </Link>
+        </div>
       </div>
 
       <div className="hero-info">
@@ -54,9 +60,8 @@ function Hero() {
           <small>Adultos</small>
         </div>
       </div>
-
     </section>
-  )
+  );
 }
 
-export default Hero
+export default Hero;

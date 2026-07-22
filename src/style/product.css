@@ -36,116 +36,120 @@
 }
 
 
-
-.product{
+.product {
   position: relative;
-  padding: 110px 0;
+  padding: 48px 20px 90px;
   background:
     radial-gradient(
       circle at top left,
       rgba(143, 214, 210, 0.18),
       transparent 35%
     ),
-
     radial-gradient(
       circle at bottom right,
       rgba(120, 196, 223, 0.12),
       transparent 40%
     ),
-
     linear-gradient(
       180deg,
       #f8f8f6 0%,
+      #eef5f3 38%,
       #001515 100%
     );
-
   overflow: hidden;
 }
 
+.product-container {
+  width: min(1180px, 100%);
+  margin: 0 auto;
 
-.product-container{
-  width: 90%;
-  max-width: 1180px;
-  margin: auto;
   display: grid;
-  grid-template-columns: 420px 520px;
-  gap: 200px;
+  grid-template-columns: minmax(320px, 480px) minmax(360px, 520px);
+  gap: 72px;
   align-items: center;
   justify-content: center;
 }
 
-.product-image-box{
-  background: transparent;
-  box-shadow: none;
-
-  width: 527px;
-  height: 680px;
+.product-image-box {
+  width: 100%;
+  height: 620px;
 
   border-radius: 38px;
+  overflow: hidden;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  overflow: hidden;
+  background: transparent;
+  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12);
 }
-.product-image-box img{
+
+.product-image-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.product-image-mobile{
+.product-image-mobile {
   display: none;
 }
 
-.product-content span{
-  color: var(--primary);
-  font-size: .82rem;
-  font-weight: 800;
+.product-content {
+  width: 100%;
+  padding: 34px;
+
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12);
+}
+
+.product-content > span {
+  color: #0f8ca8;
+  font-size: 0.78rem;
+  font-weight: 900;
   letter-spacing: 3px;
   text-transform: uppercase;
 }
 
-.product-content h2{
-  font-size: 2.8rem;
-  margin: 16px 0 22px;
-  color: #101010;
-  line-height: 1.1;
+.product-content h2 {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  margin: 14px 0 18px;
+  color: #0f172a;
+  line-height: 1.08;
 }
 
-.product-content p{
-  color: #5f5f5f;
-  line-height: 1.8;
-  font-size: 1.05rem;
-  margin-bottom: 26px;
+.product-content p {
+  color: #475569;
+  line-height: 1.75;
+  font-size: 1.02rem;
+  margin: 0 0 24px;
 }
 
-.ingredients{
-  width: fit-content;
-
-  max-width: 420px;
-
-  background: rgba(255, 255, 255, 0);
-
-  /*border: 1px solid #f0f0f0;*/
-
-  border-radius: 24px;
-
-  padding: 28px;
-
-  margin: 0 auto 30px auto;
+/* INGREDIENTES */
+.ingredients {
+  width: 100%;
+  max-width: 460px;
+  margin: 26px 0 24px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
-.ingredients h3{
-  color: #0d1a21;
+.ingredients h3 {
+  color: #0f172a;
   margin-bottom: 16px;
-  font-size: 24px;
+  font-size: 1.35rem;
+  font-weight: 900;
 }
 
-.ingredients ul{
-  font-size: 22px;
+.ingredients ul {
   list-style: none;
   display: grid;
   gap: 12px;
@@ -153,79 +157,121 @@
   margin: 0;
 }
 
-.ingredients li{
-  color: #ffffff;
+.ingredients li {
+  color: #f8fafc;
+  font-size: 1.08rem;
+  line-height: 1.35;
 }
 
-.ingredients li::before{
+.ingredients li::before {
   content: "✓";
-  color: #00aaff;
+  color: #0bd1ea;
   font-weight: 900;
   margin-right: 10px;
 }
 
-.product-btn{
-  display: inline-block;
-  background: linear-gradient(135deg, #565555, #0bd1ea);
-  color: rgb(255 255 255);
-  padding: 15px 32px;
-  border-radius: 100px;
-  font-weight: 700;
-  text-decoration: none;
-}
+/* CANTIDAD */
+.quantity-box {
+  width: 100%;
+  max-width: 420px;
+  margin: 26px 0 22px;
 
-/*boton info nutricion*/
-.nutrition-btn{
-  display: inline-block;
-  background: linear-gradient(135deg, #565555, #050505);
-  color: rgb(255 255 255);
-  padding: 15px 32px;
-  border-radius: 100px;
-  font-weight: 700;
-  text-decoration: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-size: 1rem;
-  font-family: inherit;
-  box-shadow:
-    0 10px 24px rgba(0,0,0,.18);
-
-  transition: .25s ease;
-}
-
-.nutrition-modal{
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: rgba(0,0,0,.72);
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.quantity-label {
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #f8fafc;
+}
+
+.quantity-control {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 22px;
+  gap: 18px;
+
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
-.product-buttons{
+
+.quantity-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+  color: #06150f;
+
+  font-size: 1.3rem;
+  font-weight: 900;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.quantity-btn:hover {
+  transform: scale(1.06);
+  background: #ffd902;
+}
+
+.quantity-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  transform: none;
+}
+
+.quantity-number {
+  min-width: 24px;
+  text-align: center;
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+/* BOTONES */
+.product-buttons {
+  width: 100%;
+  max-width: 420px;
+
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  align-items: center;
-  width: 100%;
+  gap: 14px;
+  align-items: stretch;
 }
 
 .product-btn,
-.nutrition-btn{
-  display: block;
-  width: 100%;
-  max-width: 360px;
-  min-width: unset;
+.nutrition-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
-  padding: 15px 32px;
-  border-radius: 100px;
+  width: 100%;
+  min-height: 54px;
+  padding: 15px 28px;
+  border-radius: 999px;
 
   color: #fff;
   font-size: 1rem;
   font-family: inherit;
-  font-weight: 700;
+  font-weight: 800;
   text-align: center;
   text-decoration: none;
 
@@ -234,49 +280,76 @@
   cursor: pointer;
 
   box-sizing: border-box;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    opacity 0.25s ease;
 }
 
-.product-btn{
-  background: linear-gradient(135deg, #565555, #0bd1ea);
+.product-btn {
+  background: linear-gradient(135deg, #0f8ca8, #0bd1ea);
+  box-shadow: 0 16px 34px rgba(11, 209, 234, 0.22);
 }
 
-.nutrition-btn{
+.nutrition-btn {
   background: linear-gradient(135deg, #565555, #050505);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
 }
 
-.nutrition-box{
+.product-btn:hover,
+.nutrition-btn:hover {
+  transform: translateY(-2px);
+}
+
+.product-btn:hover {
+  box-shadow: 0 20px 44px rgba(11, 209, 234, 0.3);
+}
+
+.nutrition-btn:hover {
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+}
+
+/* MODAL NUTRICIONAL */
+.nutrition-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  background: rgba(0, 0, 0, 0.72);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 22px;
+}
+
+.nutrition-box {
   position: relative;
   max-width: 920px;
   width: 100%;
 }
 
-.nutrition-box img{
+.nutrition-box img {
   width: 100%;
   border-radius: 22px;
   display: block;
 }
 
-.nutrition-close{
+.nutrition-close {
   position: absolute;
   top: -16px;
   right: -16px;
+
   width: 42px;
   height: 42px;
   border-radius: 50%;
   border: none;
+
   font-size: 28px;
   cursor: pointer;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
