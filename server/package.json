@@ -9,7 +9,8 @@
   "start": "node index.js",
   "postinstall": "prisma generate",
   "prisma:generate": "prisma generate",
-  "prisma:migrate:deploy": "prisma migrate deploy"
+  "prisma:migrate:deploy": "prisma migrate deploy",
+  "prisma:seed": "node prisma/seed.js"
 },
   "keywords": [],
   "author": "",

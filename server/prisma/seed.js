@@ -40,12 +40,74 @@ const readCutFile = () => {
   }));
 };
 
+const CEREBRIA_PRODUCT = {
+  name: "Cerebria",
+  description:
+    "Suplemento alimenticio para el bienestar cognitivo.",
+  price: 20000,
+  stock: 13,
+  imageUrl: "/producto.png",
+  isActive: true,
+};
+
+const seedCerebriaProduct = async () => {
+  const existingProducts = await prisma.product.findMany({
+    where: {
+      name: CEREBRIA_PRODUCT.name,
+    },
+    select: {
+      id: true,
+      stock: true,
+    },
+  });
+
+  if (existingProducts.length > 1) {
+    throw new Error(
+      "Existen varios productos llamados Cerebria. El seed fue detenido para evitar modificar el producto incorrecto."
+    );
+  }
+
+  if (existingProducts.length === 1) {
+    const existingProduct = existingProducts[0];
+
+    const updatedProduct = await prisma.product.update({
+      where: {
+        id: existingProduct.id,
+      },
+      data: {
+        description: CEREBRIA_PRODUCT.description,
+        price: CEREBRIA_PRODUCT.price,
+        imageUrl: CEREBRIA_PRODUCT.imageUrl,
+        isActive: true,
+      },
+    });
+
+    console.log(
+      `✅ Producto Cerebria actualizado. Stock conservado: ${updatedProduct.stock}`
+    );
+
+    return updatedProduct;
+  }
+
+  const createdProduct = await prisma.product.create({
+    data: CEREBRIA_PRODUCT,
+  });
+
+  console.log(
+    `✅ Producto Cerebria creado con stock ${createdProduct.stock}`
+  );
+
+  return createdProduct;
+};
+
 async function main() {
+  console.log("🌱 Iniciando seed de datos...");
+
+  await seedCerebriaProduct();
+
   console.log("🌎 Iniciando seed del Geo Module desde CUT...");
 
   const rows = readCutFile();
-
-  console.log(`Filas encontradas en CUT: ${rows.length}`);
 
   const chile = await prisma.geoCountry.upsert({
     where: {
@@ -166,7 +228,7 @@ async function main() {
 
 main()
   .catch((error) => {
-    console.error("❌ Error ejecutando seed Geo Module");
+    console.error("❌ Error ejecutando seed de datos");
     console.error(error);
     process.exit(1);
   })
