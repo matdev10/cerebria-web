@@ -10,6 +10,7 @@ import Lifestyle from "./components/Lifestyle";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ProductPage from "./pages/ProductPage";
+import BuyPage from "./pages/BuyPage";
 
 import CartDrawer from "./components/cart/CartDrawer";
 
@@ -38,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/producto" element={<ProductPage />} />
+        <Route path="/comprar" element={<BuyPage />} />
         <Route path="/carrito" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/pago/exitoso" element={<PaymentSuccessPage />} />
