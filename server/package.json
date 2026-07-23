@@ -4,9 +4,13 @@
   "description": "Backend Cerebria",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "dev": "nodemon index.js"
-  },
+"scripts": {
+  "dev": "nodemon index.js",
+  "start": "node index.js",
+  "postinstall": "prisma generate",
+  "prisma:generate": "prisma generate",
+  "prisma:migrate:deploy": "prisma migrate deploy"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
