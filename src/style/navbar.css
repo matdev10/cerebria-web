@@ -1,22 +1,36 @@
-.navbar {
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
   position: fixed;
   top: 18px;
   left: 0;
-  width: 100%;
+
   z-index: 999;
+
+  width: 100%;
+
   display: flex;
   justify-content: center;
+
   pointer-events: none;
 }
 
-.navbar-container {
+.navbar-container{
+  position: relative;
+  z-index: 1001;
+
   width: min(1180px, calc(100% - 32px));
   height: 68px;
+
   padding: 0 10px 0 20px;
-  display: flex;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 24px;
+
   background:
     radial-gradient(
       circle at top right,
@@ -26,82 +40,123 @@
       #041619 100%
     );
 
-  opacity:1;  border-radius: 999px;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+
+  box-shadow:
+    0 16px 42px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
   pointer-events: auto;
 }
 
-.logo {
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo{
+  justify-self: start;
+
   display: flex;
   align-items: center;
-  text-decoration: none;
+
   flex-shrink: 0;
+  text-decoration: none;
 }
 
-.logo img {
+.logo img{
+  display: block;
+
   width: 52px;
   height: auto;
-  display: block;
 }
 
-.nav-links {
+
+/* =========================================================
+   ENLACES
+========================================================= */
+
+.nav-links{
+  justify-self: center;
+
   display: flex;
   align-items: center;
   gap: 32px;
 }
 
-.nav-links a {
+.nav-links a{
   position: relative;
+
   color: #f5f5f5;
+
   font-size: 15px;
   font-weight: 700;
   text-decoration: none;
+
+  white-space: nowrap;
+
   transition: color 0.25s ease;
 }
 
-.nav-links a::after {
+.nav-links a::after{
   content: "";
+
   position: absolute;
   left: 0;
   bottom: -7px;
+
   width: 0;
   height: 2px;
+
   border-radius: 999px;
   background: #ffd902;
+
   transition: width 0.25s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:hover{
   color: #ffd902;
 }
 
-.nav-links a:hover::after {
+.nav-links a:hover::after{
   width: 100%;
 }
 
-.navbar-actions {
+
+/* =========================================================
+   ACCIONES
+========================================================= */
+
+.navbar-actions{
+  justify-self: end;
+
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.cart-btn {
+.cart-btn{
   position: relative;
+
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 
   padding: 10px 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
 
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.16);
 
   color: #f6f7f8;
+
   font-size: 14px;
   font-weight: 800;
   text-decoration: none;
+  white-space: nowrap;
 
   transition:
     transform 0.25s ease,
@@ -109,20 +164,25 @@
     background 0.25s ease;
 }
 
-.cart-btn svg {
+.cart-btn svg{
   width: 18px;
   height: 18px;
+
+  flex-shrink: 0;
 }
 
-.cart-btn:hover {
+.cart-btn:hover{
   transform: translateY(-2px);
+
   background: rgba(255, 255, 255, 0.16);
+
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
 }
 
-.cart-badge {
+.cart-badge{
   min-width: 22px;
   height: 22px;
+
   padding: 0 6px;
 
   display: inline-flex;
@@ -130,138 +190,267 @@
   justify-content: center;
 
   border-radius: 999px;
+
   background: #22c55e;
-  color: #fff;
+  color: #ffffff;
 
   font-size: 12px;
   font-weight: 900;
 }
 
-/* Botón hamburguesa - solo visible en mobile */
-.menu-toggle {
+
+/* =========================================================
+   BOTÓN MENÚ
+========================================================= */
+
+.menu-toggle{
   display: none;
   align-items: center;
   justify-content: center;
+
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 0;
+
   border: 1px solid rgba(255, 255, 255, 0.16);
-  color: #fff;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+
   cursor: pointer;
-  transition: background 0.25s ease;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
 }
 
-.menu-toggle:hover {
+.menu-toggle:hover{
   background: rgba(255, 255, 255, 0.18);
 }
 
-.menu-toggle svg {
+.menu-toggle:active{
+  transform: scale(0.96);
+}
+
+.menu-toggle svg{
   width: 20px;
   height: 20px;
 }
 
-/* Tablet */
-@media (max-width: 900px) {
-  .navbar {
+
+/* =========================================================
+   FONDO DEL MENÚ MÓVIL
+========================================================= */
+
+.nav-backdrop{
+  display: none;
+
+  position: fixed;
+  inset: 0;
+
+  z-index: 999;
+
+  padding: 0;
+  border: 0;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px){
+
+  .navbar{
     top: 16px;
   }
 
-  .navbar-container {
+  .navbar-container{
     width: calc(100% - 24px);
-    height: auto;
-    min-height: 60px;
-    padding: 9px 10px 9px 18px;
-    border-radius: 60px;
-  }
+    height: 62px;
 
-  .nav-links {
+    padding: 0 10px 0 18px;
     gap: 18px;
   }
 
-  .nav-links a {
+  .nav-links{
+    gap: 18px;
+  }
+
+  .nav-links a{
     font-size: 14px;
+  }
+
+  .logo img{
+    width: 44px;
+  }
+
+  .cart-btn{
+    padding: 9px 15px;
   }
 }
 
-/* Mobile */
-@media (max-width: 680px) {
-  .navbar-container {
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 680px){
+
+  .navbar{
+    top: 16px;
   }
 
-  .logo img {
+  .navbar-container{
+    width: calc(100% - 24px);
+    height: 62px;
+
+    padding: 0 10px 0 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    border-radius: 999px;
+  }
+
+  .logo img{
     width: 38px;
   }
 
-  /* El menú pasa a desplegable, ya no desaparece */
-  .nav-links {
-    display: none;
-    position: fixed;
-    top: 90px;           /* debajo de la navbar, ajusta según tu navbar-container height */
-    left: 16px;
-    right: 16px;
-    z-index: 1000;
-
-    flex-direction: column;
-    gap: 4px;
-
-    background: linear-gradient(180deg, rgba(10, 38, 42, .98), rgba(4, 22, 25, .99));
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 24px;
-    padding: 12px;
-
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-  }
-
-  .nav-links.open {
-    display: flex;
-  }
-
-  .nav-links a {
-    width: 100%;
-    padding: 14px 16px;
-    border-radius: 14px;
-    transition: background 0.2s ease;
-  }
-
-  .nav-links a:hover,
-  .nav-links a:active {
-    background: rgba(255, 255, 255, 0.08);
-  }
-
-  .nav-links a::after {
-    display: none; /* el subrayado no calza en este formato de lista */
-  }
-
-  /* Fondo oscuro detrás del menú, para enfocar la atención */
-  .nav-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-  }
-
-  .nav-backdrop.open {
-    display: block;
-  }
-
-  .navbar-actions {
+  .navbar-actions{
     margin-left: auto;
     gap: 8px;
   }
 
-  .cart-btn {
+  .cart-btn{
     padding: 8px 14px;
     font-size: 13px;
   }
 
-  .menu-toggle {
+  .menu-toggle{
     display: inline-flex;
+  }
+
+  /*
+    Aunque está dentro de navbar-container en el JSX,
+    position: fixed lo saca del flujo y evita que
+    aumente la altura de la píldora.
+  */
+  .nav-links{
+    position: fixed;
+    top: 90px;
+    left: 16px;
+    right: 16px;
+
+    z-index: 1001;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+
+    padding: 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 24px;
+
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 38, 42, 0.99),
+        rgba(4, 22, 25, 0.99)
+      );
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: translateY(-12px);
+
+    transition:
+      opacity 0.22s ease,
+      visibility 0.22s ease,
+      transform 0.22s ease;
+  }
+
+  .nav-links.open{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: translateY(0);
+  }
+
+  .nav-links a{
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border-radius: 14px;
+
+    font-size: 15px;
+
+    transition:
+      color 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:active{
+    color: #ffd902;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-links a::after{
+    display: none;
+  }
+
+  .nav-backdrop.open{
+    display: block;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px){
+
+  .navbar-container{
+    width: calc(100% - 20px);
+    padding-left: 14px;
+    padding-right: 8px;
+  }
+
+  .logo img{
+    width: 36px;
+  }
+
+  .cart-btn{
+    padding: 8px 12px;
+  }
+
+  .cart-btn span:not(.cart-badge){
+    font-size: 12px;
+  }
+
+  .menu-toggle{
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-links{
+    left: 10px;
+    right: 10px;
   }
 }
