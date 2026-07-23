@@ -16,12 +16,6 @@ function Navbar() {
           <img src={logo} alt="Cerebria" />
         </Link>
 
-        <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <a href="/#inicio" onClick={() => setMenuOpen(false)}>Inicio</a>
-          <a href="/#beneficios" onClick={() => setMenuOpen(false)}>Beneficios</a>
-          <Link to="/producto" onClick={() => setMenuOpen(false)}>Producto</Link>
-        </nav>
-
         <div className="navbar-actions">
           <Link to="/carrito" className="cart-btn">
             <ShoppingCart />
@@ -39,6 +33,18 @@ function Navbar() {
           </button>
         </div>
       </div>
+
+      {/* Fuera de navbar-container, para que no estire la píldora */}
+      <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
+        <a href="/#inicio" onClick={() => setMenuOpen(false)}>Inicio</a>
+        <a href="/#beneficios" onClick={() => setMenuOpen(false)}>Beneficios</a>
+        <Link to="/producto" onClick={() => setMenuOpen(false)}>Producto</Link>
+      </nav>
+
+      <div
+        className={`nav-backdrop ${menuOpen ? "open" : ""}`}
+        onClick={() => setMenuOpen(false)}
+      />
     </header>
   );
 }

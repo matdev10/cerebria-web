@@ -1,5 +1,6 @@
 import "../style/hero.css";
 import heroPremium from "../assets/img/hero-cerebria-premium.jpg";
+import heroMobil from "../assets/img/hero-cerebria-mobil2.png";
 import { Link } from "react-router-dom";
 
 import {
@@ -13,11 +14,14 @@ function Hero() {
   return (
     <>
       <section className="hero" id="inicio">
-        <img
-          className="hero-full-image"
-          alt="Cerebria suplemento alimentario"
-          src={heroPremium}
-        />
+        <picture>
+          <source media="(max-width: 768px)" srcSet={heroMobil} />
+          <img
+            className="hero-full-image"
+            alt="Cerebria suplemento alimentario"
+            src={heroPremium}
+          />
+        </picture>
 
         <div className="hero-copy">
           <h1>

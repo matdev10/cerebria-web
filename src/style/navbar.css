@@ -17,8 +17,16 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  background: radial-gradient(circle at top right, rgba(143, 214, 210, .22), transparent 35%), linear-gradient(180deg, rgba(10, 38, 42, .96), rgba(4, 22, 25, .98));
-  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle at top right,
+      #31595a 0%,
+      #173b3e 20%,
+      #0a262a 38%,
+      #041619 100%
+    );
+
+  opacity:1;  border-radius: 999px;
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   pointer-events: auto;
@@ -191,14 +199,23 @@
   /* El menú pasa a desplegable, ya no desaparece */
   .nav-links {
     display: none;
-    order: 3;
-    width: 100%;
+    position: fixed;
+    top: 90px;           /* debajo de la navbar, ajusta según tu navbar-container height */
+    left: 16px;
+    right: 16px;
+    z-index: 1000;
+
     flex-direction: column;
-    align-items: flex-start;
     gap: 4px;
-    padding: 14px 6px 6px;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    margin-top: 10px;
+
+    background: linear-gradient(180deg, rgba(10, 38, 42, .98), rgba(4, 22, 25, .99));
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 24px;
+    padding: 12px;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 
   .nav-links.open {
@@ -207,11 +224,31 @@
 
   .nav-links a {
     width: 100%;
-    padding: 10px 8px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    transition: background 0.2s ease;
+  }
+
+  .nav-links a:hover,
+  .nav-links a:active {
+    background: rgba(255, 255, 255, 0.08);
   }
 
   .nav-links a::after {
-    display: none; /* el subrayado no tiene sentido en lista vertical */
+    display: none; /* el subrayado no calza en este formato de lista */
+  }
+
+  /* Fondo oscuro detrás del menú, para enfocar la atención */
+  .nav-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .nav-backdrop.open {
+    display: block;
   }
 
   .navbar-actions {
