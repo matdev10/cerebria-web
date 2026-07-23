@@ -2,6 +2,7 @@ import crypto from "node:crypto";
 
 import prisma from "../database/prisma.js";
 import { createPaymentPreference } from "../services/payment.service.js";
+import { processPaymentNotification } from "../services/webhook.service.js";
 import { validateCreatePreferencePayload } from "../validators/payment.validator.js";
 
 const separateCustomerName = (fullName = "") => {
@@ -227,6 +228,8 @@ export const createPreference = async (req, res) => {
       });
     });
 
+    
+
     const paymentItems = order.items.map((item) => ({
       productId: item.productId,
       name: item.productName,
@@ -283,5 +286,63 @@ export const createPreference = async (req, res) => {
           ? error.message
           : undefined,
     });
+  }
+};
+
+export const reconcilePayment = async (req, res) => {
+  try {
+    const paymentId = String(
+      req.body?.paymentId ?? ""
+    ).trim();
+
+    const orderNumber = String(
+      req.body?.orderNumber ?? ""
+    ).trim();
+
+    if (!paymentId || !/^\d+$/.test(paymentId)) {
+      return res.status(400).json({
+        success: false,
+        message: "El payment ID no es válido.",
+      });
+    }
+
+    if (
+      !orderNumber ||
+      !orderNumber.startsWith("MW-")
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "El número de pedido no es válido.",
+      });
+    }
+
+    const result = await processPaymentNotification(
+      paymentId,
+      orderNumber
+    );
+
+    return res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    console.error(
+      "Error reconciliando pago de Mercado Pago:",
+      error
+    );
+
+    return res
+      .status(error.statusCode || 500)
+      .json({
+        success: false,
+        message:
+          error.statusCode === 409
+            ? error.message
+            : "No fue posible verificar el pago con Mercado Pago.",
+        error:
+          process.env.NODE_ENV === "development"
+            ? error.message
+            : undefined,
+      });
   }
 };

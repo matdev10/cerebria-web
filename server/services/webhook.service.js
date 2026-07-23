@@ -53,7 +53,8 @@ const validatePaymentAgainstOrder = (payment, order) => {
 };
 
 export const processPaymentNotification = async (
-  paymentId
+  paymentId,
+  expectedOrderNumber = null
 ) => {
   const payment = await getPaymentFromMercadoPago(
     paymentId
@@ -68,6 +69,18 @@ export const processPaymentNotification = async (
       reason: "payment_without_external_reference",
       paymentId: String(payment.id),
     };
+  }
+
+  if (
+    expectedOrderNumber &&
+    orderNumber !== String(expectedOrderNumber).trim()
+  ) {
+    const error = new Error(
+      "El pago no corresponde a la orden indicada."
+    );
+
+    error.statusCode = 409;
+    throw error;
   }
 
   const order = await prisma.order.findUnique({
