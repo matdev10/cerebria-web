@@ -1,354 +1,558 @@
-/* =========================
-   PRODUCT
-========================= */
-.ingredient-list li{
-  opacity: 0;
-  transform: translateY(-25px);
+/* =========================================================
+   PÁGINA PRODUCTO
+========================================================= */
 
-  transition:
-    opacity .7s ease,
-    transform .7s ease;
-}
+.product-page{
+  min-height: 100vh;
 
-/* estado visible */
-.ingredient-list.show li{
-  opacity: 1;
-  transform: translateY(0);
-}
-.ingredient-list.show li:nth-child(1){
-  transition-delay: .1s;
-}
-
-.ingredient-list.show li:nth-child(2){
-  transition-delay: .25s;
-}
-
-.ingredient-list.show li:nth-child(3){
-  transition-delay: .4s;
-}
-
-.ingredient-list.show li:nth-child(4){
-  transition-delay: .55s;
-}
-
-.ingredient-list.show li:nth-child(5){
-  transition-delay: .7s;
-}
-
-
-.product {
-  position: relative;
-  padding: 48px 20px 90px;
   background:
     radial-gradient(
-      circle at top left,
-      rgba(143, 214, 210, 0.18),
+      circle at top right,
+      rgba(82, 159, 159, 0.12),
       transparent 35%
     ),
-    radial-gradient(
-      circle at bottom right,
-      rgba(120, 196, 223, 0.12),
-      transparent 40%
-    ),
-    linear-gradient(
-      180deg,
-      #f8f8f6 0%,
-      #eef5f3 38%,
-      #001515 100%
-    );
-  overflow: hidden;
+    #f5f8fa;
 }
 
-.product-container {
-  width: min(1180px, 100%);
+.product{
+  width: 100%;
+
+  /* Navbar fija: 18px + 68px + separación */
+  padding: 145px 0 100px;
+
+  scroll-margin-top: 110px;
+}
+
+.product-container{
+  width: min(1280px, calc(100% - 80px));
   margin: 0 auto;
 
   display: grid;
-  grid-template-columns: minmax(320px, 480px) minmax(360px, 520px);
-  gap: 72px;
-  align-items: center;
+  grid-template-columns:
+    minmax(440px, 560px)
+    minmax(0, 620px);
+
+  grid-template-areas:
+    "image intro"
+    "image content";
+
+  grid-template-rows: auto 1fr;
+
+  align-items: start;
   justify-content: center;
+
+  column-gap: clamp(55px, 6vw, 95px);
+  row-gap: 24px;
 }
 
-.product-image-box {
-  width: 100%;
-  height: 620px;
+/* =========================================================
+   IMAGEN
+========================================================= */
 
-  border-radius: 38px;
+.product-image-column{
+  grid-area: image;
+  min-width: 0;
+}
+.product-intro{
+  grid-area: intro;
+  min-width: 0;
+  padding-top: 10px;
+}
+
+.product-image-box{
+  position: sticky;
+  top: 120px;
+
+  width: 100%;
+  aspect-ratio: 4 / 5;
+
   overflow: hidden;
+
+  border-radius: 34px;
+  background: #dce8e7;
+
+  box-shadow:
+    0 28px 65px rgba(5, 39, 41, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.product-image-box img{
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+
+/* Oculta una posible imagen móvil duplicada */
+.product-image-mobile{
+  display: none;
+}
+
+
+/* =========================================================
+   CONTENIDO
+========================================================= */
+
+.product-content{
+  grid-area: content;
+  min-width: 0;
+  padding: 0;
+}
+
+.product-header{
+  width: 100%;
+}
+
+.product-eyebrow{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 18px;
+
+  color: #078ca3;
+
+  font-size: 0.78rem;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.product-eyebrow::before{
+  content: "";
+
+  display: block;
+
+  width: 32px;
+  height: 2px;
+
+  background: #078ca3;
+}
+
+.product-intro h1{
+  max-width: 600px;
+  margin: 0;
+
+  color: #071426;
+
+  font-size: clamp(3rem, 4.5vw, 4.6rem);
+  line-height: 0.98;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.product-description{
+  max-width: 600px;
+  margin: 26px 0 0;
+
+  color: #526478;
+
+  font-size: 1.12rem;
+  line-height: 1.65;
+}
+
+.product-price{
+  margin: 32px 0 0;
+
+  color: #071426;
+
+  font-size: clamp(2rem, 2.8vw, 2.7rem);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.035em;
+}
+
+
+/* =========================================================
+   INGREDIENTES
+========================================================= */
+
+.ingredients{
+  margin-top: 38px;
+}
+
+.ingredients h2{
+  margin: 0 0 20px;
+
+  color: #071426;
+
+  font-size: 1.65rem;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.ingredient-list{
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  gap: 13px;
+
+  list-style: none;
+}
+
+.ingredient-list li{
+  position: relative;
+
+  padding-left: 30px;
+
+  color: #26384e;
+
+  font-size: 1.05rem;
+  line-height: 1.45;
+
+  /* Siempre visibles */
+  opacity: 1;
+  transform: none;
+}
+
+.ingredient-list li::before{
+  content: "✓";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  color: #079bb2;
+
+  font-size: 1.2rem;
+  line-height: 1.35;
+  font-weight: 900;
+}
+
+
+/* =========================================================
+   COMPRA
+========================================================= */
+
+.product-purchase{
+  width: 100%;
+
+  /* Ya no se empuja hasta el fondo */
+  margin-top: 38px;
+  padding-top: 0;
+}
+
+.quantity-box{
+  width: 100%;
+  min-height: 72px;
+
+  padding: 12px 14px 12px 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  border: 1px solid rgba(7, 20, 38, 0.1);
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.82);
+
+  box-shadow:
+    0 12px 30px rgba(7, 20, 38, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.quantity-label{
+  color: #21334a;
+
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.quantity-control{
+  min-width: 190px;
+  height: 50px;
+
+  padding: 4px;
+
+  display: grid;
+  grid-template-columns: 42px 1fr 42px;
+  align-items: center;
+  gap: 8px;
+
+  border: 1px solid rgba(7, 20, 38, 0.08);
+  border-radius: 999px;
+
+  background: rgba(7, 20, 38, 0.045);
+}
+
+.quantity-btn{
+  width: 42px;
+  height: 42px;
+  padding: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #ffffff;
+  color: #071426;
+
+  font-family: inherit;
+  font-size: 1.45rem;
+  line-height: 1;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  box-shadow: 0 7px 16px rgba(7, 20, 38, 0.1);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.quantity-btn:hover:not(:disabled){
+  transform: translateY(-2px);
+  background: #f4fbfa;
+}
+
+.quantity-btn:disabled{
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.quantity-number{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #071426;
+
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.nutrition-btn{
+  width: 100%;
+
+  margin-top: 18px;
+  padding: 12px 16px;
+
+  border: 0;
+
+  background: transparent;
+  color: #42627d;
+
+  font-family: inherit;
+  font-size: 0.96rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+
+  cursor: pointer;
+}
+
+.nutrition-btn:hover{
+  color: #079bb2;
+}
+
+.product-buttons{
+  margin-top: 10px;
+
+  display: grid;
+  gap: 12px;
+}
+
+.product-btn,
+.product-btn-secondary{
+  width: 100%;
+  min-height: 58px;
+
+  padding: 15px 24px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease;
+}
+
+.product-btn-secondary{
+  border: 1px solid rgba(7, 20, 38, 0.17);
+
+  background: rgba(255, 255, 255, 0.7);
+  color: #071426;
+}
+
+.product-btn-secondary:hover{
+  transform: translateY(-2px);
+
+  background: #ffffff;
+
+  box-shadow: 0 12px 26px rgba(7, 20, 38, 0.08);
+}
+
+.product-btn{
+  border: 1px solid #08a9bf;
+
+  background: linear-gradient(
+    135deg,
+    #139ab4,
+    #14c5d9
+  );
+
+  color: #ffffff;
+
+  box-shadow: 0 16px 34px rgba(13, 166, 190, 0.22);
+}
+
+.product-btn:hover{
+  transform: translateY(-2px);
+
+  box-shadow: 0 22px 42px rgba(13, 166, 190, 0.3);
+}
+
+/* =========================================================
+   MODAL NUTRICIONAL
+========================================================= */
+
+.nutrition-modal{
+  position: fixed;
+  inset: 0;
+
+  z-index: 2000;
+
+  padding: 30px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: transparent;
-  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12);
+  background: rgba(2, 12, 15, 0.76);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-.product-image-box img {
+.nutrition-box{
+  position: relative;
+
+  width: min(560px, 100%);
+  max-height: calc(100vh - 60px);
+
+  padding: 18px;
+
+  overflow: auto;
+
+  border-radius: 26px;
+  background: #ffffff;
+
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
+}
+
+.nutrition-box img{
+  display: block;
+
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
+
+  border-radius: 16px;
 }
 
-.product-image-mobile {
-  display: none;
+.nutrition-close{
+  position: sticky;
+  top: 0;
+
+  z-index: 2;
+
+  width: 42px;
+  height: 42px;
+  margin: 0 0 -42px auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #071426;
+  color: #ffffff;
+
+  font-size: 1.8rem;
+  line-height: 1;
+
+  cursor: pointer;
 }
 
-.product-content {
+/* =========================================================
+   PRECIO Y CANTIDAD
+========================================================= */
+
+.product-price-row{
   width: 100%;
-  padding: 34px;
+  margin-top: 32px;
 
-  border-radius: 32px;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-
-  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
 }
 
-.product-content > span {
-  color: #0f8ca8;
-  font-size: 0.78rem;
-  font-weight: 900;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.product-content h2 {
-  font-size: clamp(2rem, 3vw, 2.8rem);
-  margin: 14px 0 18px;
-  color: #0f172a;
-  line-height: 1.08;
-}
-
-.product-content p {
-  color: #475569;
-  line-height: 1.75;
-  font-size: 1.02rem;
-  margin: 0 0 24px;
-}
-
-/* INGREDIENTES */
-.ingredients {
-  width: 100%;
-  max-width: 460px;
-  margin: 26px 0 24px;
-  padding: 0;
-  border-radius: 0;
-  background: transparent;
-}
-
-.ingredients h3 {
-  color: #0f172a;
-  margin-bottom: 16px;
-  font-size: 1.35rem;
-  font-weight: 900;
-}
-
-.ingredients ul {
-  list-style: none;
-  display: grid;
-  gap: 12px;
-  padding: 0;
+.product-price-row .product-price{
   margin: 0;
+  flex-shrink: 0;
 }
 
-.ingredients li {
-  color: #f8fafc;
-  font-size: 1.08rem;
-  line-height: 1.35;
-}
+.quantity-box-inline{
+  width: auto;
+  min-height: 58px;
 
-.ingredients li::before {
-  content: "✓";
-  color: #0bd1ea;
-  font-weight: 900;
-  margin-right: 10px;
-}
-
-/* CANTIDAD */
-.quantity-box {
-  width: 100%;
-  max-width: 420px;
-  margin: 26px 0 22px;
+  margin: 0;
+  padding: 6px 7px 6px 18px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-}
 
-.quantity-label {
-  font-size: 0.95rem;
-  font-weight: 900;
-  color: #f8fafc;
-}
-
-.quantity-control {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-
-  padding: 8px 12px;
   border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
-.quantity-btn {
-  width: 36px;
-  height: 36px;
-  border: none;
-  border-radius: 50%;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #ffffff;
-  color: #06150f;
-
-  font-size: 1.3rem;
-  font-weight: 900;
-  cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease,
-    opacity 0.2s ease;
+.quantity-box-inline .quantity-label{
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
-.quantity-btn:hover {
-  transform: scale(1.06);
-  background: #ffd902;
+.quantity-box-inline .quantity-control{
+  width: 166px;
+  min-width: 166px;
+  height: 48px;
+
+  grid-template-columns: 40px 1fr 40px;
 }
 
-.quantity-btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.45;
-  transform: none;
+.quantity-box-inline .quantity-btn{
+  width: 40px;
+  height: 40px;
 }
 
-.quantity-number {
-  min-width: 24px;
-  text-align: center;
-  color: #fff;
-  font-size: 1.05rem;
-  font-weight: 900;
-}
-
-/* BOTONES */
-.product-buttons {
-  width: 100%;
-  max-width: 420px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  align-items: stretch;
-}
-
-.product-btn,
-.nutrition-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  min-height: 54px;
-  padding: 15px 28px;
-  border-radius: 999px;
-
-  color: #fff;
-  font-size: 1rem;
-  font-family: inherit;
-  font-weight: 800;
-  text-align: center;
-  text-decoration: none;
-
-  border: none;
-  outline: none;
-  cursor: pointer;
-
-  box-sizing: border-box;
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    opacity 0.25s ease;
-}
-
-.product-btn {
-  background: linear-gradient(135deg, #0f8ca8, #0bd1ea);
-  box-shadow: 0 16px 34px rgba(11, 209, 234, 0.22);
-}
-
-.nutrition-btn {
-  background: linear-gradient(135deg, #565555, #050505);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
-}
-
-.product-btn:hover,
-.nutrition-btn:hover {
-  transform: translateY(-2px);
-}
-
-.product-btn:hover {
-  box-shadow: 0 20px 44px rgba(11, 209, 234, 0.3);
-}
-
-.nutrition-btn:hover {
-  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
-}
-
-/* MODAL NUTRICIONAL */
-.nutrition-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-
-  background: rgba(0, 0, 0, 0.72);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 22px;
-}
-
-.nutrition-box {
-  position: relative;
-  max-width: 920px;
-  width: 100%;
-}
-
-.nutrition-box img {
-  width: 100%;
-  border-radius: 22px;
-  display: block;
-}
-
-.nutrition-close {
-  position: absolute;
-  top: -16px;
-  right: -16px;
-
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: none;
-
-  font-size: 28px;
-  cursor: pointer;
+/* Los botones ahora comienzan más cerca */
+.product-purchase{
+  margin-top: 28px;
+  padding-top: 0;
 }
 
 
@@ -366,219 +570,245 @@
 
 
 
+/* =========================================================
+   NOTEBOOK
+========================================================= */
 
-
-
-
-/* =========================
-   TABLET
-========================= */
-
-@media (max-width: 992px){
+@media (max-width: 1200px){
 
   .product{
-    padding: 95px 0;
+    padding-top: 130px;
   }
 
   .product-container{
-    width: 92%;
-    grid-template-columns: 1fr;
+    width: min(1100px, calc(100% - 48px));
+
+    grid-template-columns:
+      minmax(400px, 500px)
+      minmax(0, 1fr);
+
     gap: 55px;
-    text-align: center;
   }
 
   .product-image-box{
-    width: min(520px, 100%);
-    height: 620px;
-    margin: auto;
+    height: clamp(610px, 72vh, 720px);
   }
 
-  .product-content{
-    max-width: 680px;
-    margin: auto;
+  .product-content h1{
+    font-size: clamp(2.8rem, 4.7vw, 4rem);
+  }
+
+  .product-description{
+    margin-top: 22px;
+    line-height: 1.6;
   }
 
   .ingredients{
-    margin: 0 auto 32px;
+    margin-top: 32px;
   }
 
-  .product-buttons{
-    align-items: center;
+  .product-purchase{
+    padding-top: 34px;
   }
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+/* =========================================================
+   TABLET
+========================================================= */
 
-@media (max-width: 768px){
+@media (max-width: 900px){
 
   .product{
-    padding: 80px 0 95px;
+    padding: 120px 0 80px;
   }
 
   .product-container{
-    width: 90%;
-    display: flex;
-    flex-direction: column;
+    width: min(680px, calc(100% - 40px));
+
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+      "intro"
+      "image"
+      "content";
+
+    grid-template-rows: auto;
     gap: 34px;
   }
 
+  .product-intro{
+    padding-top: 0;
+  }
+
   .product-image-box{
-    display: none;
+    position: relative;
+    top: auto;
+
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
   }
 
   .product-content{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 100%;
+    padding: 0;
   }
 
-  .product-content span{
-    order: 1;
-    font-size: .76rem;
-    letter-spacing: 3px;
-  }
-
-  .product-content h2{
-    order: 2;
-    font-size: clamp(2rem, 8vw, 2.6rem);
-    margin: 14px 0 18px;
-  }
-
-  .product-content p{
-    order: 3;
-    font-size: .98rem;
-    line-height: 1.7;
-    margin-bottom: 28px;
-    max-width: 350px;
-  }
-
-  .product-image-mobile{
-    order: 4;
-    display: block;
-    width: 100%;
-    max-width: 360px;
-    margin: 0 auto 26px;
-    border-radius: 28px;
-    overflow: hidden;
-  }
-
-  .product-image-mobile img{
-    width: 100%;
-    display: block;
-    border-radius: inherit;
-  }
-
-  .ingredients{
-    order: 5;
-    width: 100%;
-    max-width: 360px;
-    padding: 24px 18px;
-    margin: 0 auto 28px;
-  }
-
-  .ingredients h3{
-    font-size: 1.25rem;
-    margin-bottom: 18px;
-  }
-
-  .ingredients ul{
-    font-size: 1.05rem;
-    gap: 14px;
-  }
-
-  .ingredients li{
-    text-align: left;
-    line-height: 1.45;
-  }
-
-  .product-buttons{
-    order: 6;
-    width: 100%;
-    max-width: 360px;
-    gap: 14px;
-  }
-
-  .product-btn,
-  .nutrition-btn{
-    width: 100%;
-    max-width: 360px;
-    padding: 14px 22px;
-    font-size: .95rem;
-  }
-
-  .nutrition-box{
-    max-width: 95vw;
-  }
-
-  .nutrition-close{
-    top: -12px;
-    right: -8px;
+  .product-description{
+    margin-top: 0;
   }
 }
 
 
-/* =========================
-   SMALL MOBILE
-========================= */
+/* =========================================================
+   MOBILE
+========================================================= */
 
-@media (max-width: 420px){
+@media (max-width: 600px){
 
   .product{
-    padding: 70px 0 85px;
+    padding: 105px 0 65px;
   }
 
   .product-container{
-    width: 92%;
-    gap: 28px;
+    width: calc(100% - 28px);
+
+    grid-template-areas:
+      "intro"
+      "image"
+      "content";
+
+    gap: 26px;
   }
 
-  .product-content h2{
-    font-size: 2rem;
+  /* Título antes de la imagen */
+  .product-intro{
+    padding: 0;
   }
 
-  .product-content p{
-    font-size: .93rem;
-    max-width: 315px;
+  .product-eyebrow{
+    margin-bottom: 16px;
+
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
   }
 
-  .product-image-mobile{
-    max-width: 320px;
+  .product-intro h1{
+    max-width: 100%;
+
+    font-size: clamp(2.25rem, 11vw, 3rem);
+    line-height: 1.02;
+    letter-spacing: -0.045em;
+  }
+
+  /* Imagen */
+  .product-image-box{
+    width: 100%;
+
+    aspect-ratio: 4 / 5;
+
     border-radius: 24px;
   }
 
+  .product-image-box img{
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Descripción después de la imagen */
+  .product-description{
+    max-width: none;
+    margin: 0;
+
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  /* Precio y cantidad juntos */
+  .product-price-row{
+    width: 100%;
+    margin-top: 26px;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 14px;
+  }
+
+  .product-price{
+    margin: 0;
+
+    font-size: clamp(1.85rem, 8vw, 2.15rem);
+  }
+
+  .quantity-box-inline{
+    width: 182px;
+    min-height: auto;
+
+    padding: 10px;
+
+    display: grid;
+    gap: 8px;
+
+    border-radius: 24px;
+  }
+
+  .quantity-box-inline .quantity-label{
+    padding-left: 4px;
+
+    font-size: 0.82rem;
+    line-height: 1;
+  }
+
+  .quantity-box-inline .quantity-control{
+    width: 100%;
+    min-width: 0;
+    height: 46px;
+
+    grid-template-columns: 38px 1fr 38px;
+  }
+
+  .quantity-box-inline .quantity-btn{
+    width: 38px;
+    height: 38px;
+  }
+
+  /* Ingredientes */
   .ingredients{
-    max-width: 320px;
-    padding: 22px 16px;
+    margin-top: 38px;
   }
 
-  .ingredients h3{
-    font-size: 1.15rem;
+  .ingredients h2{
+    margin-bottom: 18px;
+
+    font-size: 1.55rem;
+    line-height: 1.1;
   }
 
-  .ingredients ul{
-    font-size: 1rem;
+  .ingredient-list{
+    gap: 13px;
+  }
+
+  .ingredient-list li{
+    font-size: 0.96rem;
+  }
+
+  /* Botones */
+  .product-purchase{
+    margin-top: 32px;
+    padding: 0;
+  }
+
+  .nutrition-btn{
+    margin-top: 0;
   }
 
   .product-buttons{
-    max-width: 320px;
+    margin-top: 12px;
   }
 
   .product-btn,
-  .nutrition-btn{
-    max-width: 320px;
-    padding: 14px 18px;
-  }
-
-  .nutrition-modal{
-    padding: 16px;
-  }
-
-  .nutrition-box img{
-    border-radius: 16px;
+  .product-btn-secondary{
+    min-height: 56px;
   }
 }
