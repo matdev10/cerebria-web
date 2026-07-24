@@ -90,7 +90,7 @@
    FORMULARIOS
 ========================================================= */
 
-.checkout-form-column input,
+.checkout-form-column input:not([type="radio"]):not([type="checkbox"]),
 .checkout-form-column select,
 .checkout-form-column textarea{
   width: 100%;
@@ -109,6 +109,30 @@
 }
 
 
+
+
+.checkout-form-column input[type="radio"]{
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  min-height: 18px;
+
+  margin: 0;
+
+  flex: 0 0 18px;
+
+  accent-color: #0f172a;
+
+  cursor: pointer;
+}
+
+.payment-option,
+.payment-method-option,
+.payment-method-label{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 /* =========================================================
    TABLET
 ========================================================= */
@@ -216,7 +240,7 @@
     box-sizing: border-box;
   }
 
-  .checkout-form-column input,
+  .checkout-form-column input:not([type="radio"]):not([type="checkbox"]),
   .checkout-form-column select,
   .checkout-form-column textarea{
     min-height: 48px;
