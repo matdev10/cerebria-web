@@ -69,6 +69,14 @@ model Order {
   stockUpdated     Boolean @default(false)
   confirmationSent Boolean @default(false)
 
+  customerEmailSentAt DateTime?
+  adminEmailSentAt    DateTime?
+
+  customerEmailId String?
+  adminEmailId    String?
+
+  emailLastError String?
+
   paidAt    DateTime?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

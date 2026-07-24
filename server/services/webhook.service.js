@@ -1,5 +1,9 @@
 import prisma from "../database/prisma.js";
 
+import {
+  sendOrderConfirmationEmails,
+} from "./order-email.service.js";
+
 const accessToken =
   process.env.MERCADO_PAGO_ACCESS_TOKEN?.trim();
 
@@ -9,7 +13,9 @@ if (!accessToken) {
   );
 }
 
-const getPaymentFromMercadoPago = async (paymentId) => {
+const getPaymentFromMercadoPago = async (
+  paymentId
+) => {
   const response = await fetch(
     `https://api.mercadopago.com/v1/payments/${paymentId}`,
     {
@@ -32,8 +38,14 @@ const getPaymentFromMercadoPago = async (paymentId) => {
   return payment;
 };
 
-const validatePaymentAgainstOrder = (payment, order) => {
-  const paymentAmount = Number(payment.transaction_amount);
+const validatePaymentAgainstOrder = (
+  payment,
+  order
+) => {
+  const paymentAmount = Number(
+    payment.transaction_amount
+  );
+
   const orderTotal = Number(order.total);
 
   if (paymentAmount !== orderTotal) {
@@ -52,13 +64,40 @@ const validatePaymentAgainstOrder = (payment, order) => {
   }
 };
 
+const getErrorMessage = (error) =>
+  String(
+    error?.message ||
+      "Error desconocido al procesar los correos"
+  ).slice(0, 1500);
+
+const saveGeneralEmailError = async (
+  orderId,
+  message
+) => {
+  try {
+    await prisma.order.update({
+      where: {
+        id: orderId,
+      },
+      data: {
+        emailLastError:
+          `Error general: ${message}`,
+      },
+    });
+  } catch {
+    /*
+     * Un fallo al registrar el error de correo no debe
+     * modificar ni revertir el estado PAID de la orden.
+     */
+  }
+};
+
 export const processPaymentNotification = async (
   paymentId,
   expectedOrderNumber = null
 ) => {
-  const payment = await getPaymentFromMercadoPago(
-    paymentId
-  );
+  const payment =
+    await getPaymentFromMercadoPago(paymentId);
 
   const orderNumber =
     payment.external_reference?.trim();
@@ -66,20 +105,23 @@ export const processPaymentNotification = async (
   if (!orderNumber) {
     return {
       ignored: true,
-      reason: "payment_without_external_reference",
+      reason:
+        "payment_without_external_reference",
       paymentId: String(payment.id),
     };
   }
 
   if (
     expectedOrderNumber &&
-    orderNumber !== String(expectedOrderNumber).trim()
+    orderNumber !==
+      String(expectedOrderNumber).trim()
   ) {
     const error = new Error(
       "El pago no corresponde a la orden indicada."
     );
 
     error.statusCode = 409;
+
     throw error;
   }
 
@@ -101,150 +143,219 @@ export const processPaymentNotification = async (
     };
   }
 
-  validatePaymentAgainstOrder(payment, order);
+  validatePaymentAgainstOrder(
+    payment,
+    order
+  );
 
-  return prisma.$transaction(
-    async (transaction) => {
-      const currentOrder =
-        await transaction.order.findUnique({
-          where: {
-            id: order.id,
-          },
-          include: {
-            items: true,
-          },
-        });
+  /*
+   * Primero se procesa la orden, el pago y el stock
+   * dentro de una transacción serializable.
+   */
+  const transactionResult =
+    await prisma.$transaction(
+      async (transaction) => {
+        const currentOrder =
+          await transaction.order.findUnique({
+            where: {
+              id: order.id,
+            },
+            include: {
+              items: true,
+            },
+          });
 
-      if (!currentOrder) {
-        throw new Error(
-          `La orden ${orderNumber} dejó de existir.`
-        );
-      }
-
-      const paymentData = {
-        paymentId: String(payment.id),
-        paymentStatus: payment.status || null,
-        paymentStatusDetail:
-          payment.status_detail || null,
-      };
-
-      if (payment.status === "approved") {
-        let stockUpdated =
-          currentOrder.stockUpdated;
-
-        let stockWarning = null;
-
-        /*
-         * Solo descontamos stock si todavía no fue actualizado.
-         * Esto evita duplicar el descuento cuando Mercado Pago
-         * repite la misma notificación.
-         */
-        if (!stockUpdated) {
-          const productIds =
-            currentOrder.items.map(
-              (item) => item.productId
-            );
-
-          const products =
-            await transaction.product.findMany({
-              where: {
-                id: {
-                  in: productIds,
-                },
-              },
-            });
-
-          const productMap = new Map(
-            products.map((product) => [
-              product.id,
-              product,
-            ])
+        if (!currentOrder) {
+          throw new Error(
+            `La orden ${orderNumber} dejó de existir.`
           );
+        }
 
-          const itemsWithoutStock =
-            currentOrder.items.filter((item) => {
-              const product = productMap.get(
-                item.productId
+        const paymentData = {
+          paymentId: String(payment.id),
+          paymentStatus:
+            payment.status || null,
+          paymentStatusDetail:
+            payment.status_detail || null,
+        };
+
+        if (payment.status === "approved") {
+          let stockUpdated =
+            currentOrder.stockUpdated;
+
+          let stockWarning = null;
+
+          /*
+           * Solo descontamos stock si todavía
+           * no fue actualizado.
+           */
+          if (!stockUpdated) {
+            const productIds =
+              currentOrder.items.map(
+                (item) => item.productId
               );
 
-              return (
-                !product ||
-                product.stock < item.quantity
-              );
-            });
-
-          if (itemsWithoutStock.length === 0) {
-            for (const item of currentOrder.items) {
-              await transaction.product.update({
+            const products =
+              await transaction.product.findMany({
                 where: {
-                  id: item.productId,
-                },
-                data: {
-                  stock: {
-                    decrement: item.quantity,
+                  id: {
+                    in: productIds,
                   },
                 },
               });
+
+            const productMap = new Map(
+              products.map((product) => [
+                product.id,
+                product,
+              ])
+            );
+
+            const itemsWithoutStock =
+              currentOrder.items.filter(
+                (item) => {
+                  const product =
+                    productMap.get(
+                      item.productId
+                    );
+
+                  return (
+                    !product ||
+                    product.stock <
+                      item.quantity
+                  );
+                }
+              );
+
+            if (
+              itemsWithoutStock.length === 0
+            ) {
+              for (
+                const item of currentOrder.items
+              ) {
+                await transaction.product.update({
+                  where: {
+                    id: item.productId,
+                  },
+                  data: {
+                    stock: {
+                      decrement:
+                        item.quantity,
+                    },
+                  },
+                });
+              }
+
+              stockUpdated = true;
+            } else {
+              stockWarning =
+                "El pago fue aprobado, pero no se pudo descontar todo el stock automáticamente.";
             }
-
-            stockUpdated = true;
-          } else {
-            stockWarning =
-              "El pago fue aprobado, pero no se pudo descontar todo el stock automáticamente.";
           }
-        }
 
-        const updatedOrder =
-          await transaction.order.update({
-            where: {
-              id: currentOrder.id,
-            },
-            data: {
-              ...paymentData,
-              status: "PAID",
-              stockUpdated,
-              paidAt: payment.date_approved
-                ? new Date(payment.date_approved)
-                : new Date(),
-            },
-          });
+          const updatedOrder =
+            await transaction.order.update({
+              where: {
+                id: currentOrder.id,
+              },
+              data: {
+                ...paymentData,
+                status: "PAID",
+                stockUpdated,
+                paidAt:
+                  payment.date_approved
+                    ? new Date(
+                        payment.date_approved
+                      )
+                    : new Date(),
+              },
+            });
 
-
-        return {
-          updated: true,
-          paymentId: String(payment.id),
-          orderNumber,
-          status: updatedOrder.status,
-          stockUpdated,
-          stockWarning,
-        };
-      }
-
-      if (
-        payment.status === "rejected" ||
-        payment.status === "cancelled"
-      ) {
-        /*
-         * Nunca degradamos una orden que ya había quedado PAID.
-         */
-        if (currentOrder.status === "PAID") {
           return {
-            updated: false,
-            reason: "order_already_paid",
+            updated: true,
             paymentId: String(payment.id),
             orderNumber,
+            status: updatedOrder.status,
+            stockUpdated,
+            stockWarning,
           };
         }
 
+        if (
+          payment.status === "rejected" ||
+          payment.status === "cancelled"
+        ) {
+          /*
+           * Nunca degradamos una orden que
+           * ya había quedado PAID.
+           */
+          if (
+            currentOrder.status === "PAID"
+          ) {
+            return {
+              updated: false,
+              reason: "order_already_paid",
+              paymentId:
+                String(payment.id),
+              orderNumber,
+              status:
+                currentOrder.status,
+            };
+          }
+
+          const updatedOrder =
+            await transaction.order.update({
+              where: {
+                id: currentOrder.id,
+              },
+              data: {
+                ...paymentData,
+                status:
+                  "PAYMENT_REJECTED",
+              },
+            });
+
+          return {
+            updated: true,
+            paymentId: String(payment.id),
+            orderNumber,
+            status: updatedOrder.status,
+          };
+        }
+
+        if (
+          payment.status === "refunded"
+        ) {
+          const updatedOrder =
+            await transaction.order.update({
+              where: {
+                id: currentOrder.id,
+              },
+              data: {
+                ...paymentData,
+                status: "REFUNDED",
+              },
+            });
+
+          return {
+            updated: true,
+            paymentId: String(payment.id),
+            orderNumber,
+            status: updatedOrder.status,
+          };
+        }
+
+        /*
+         * Para pending, in_process u otros
+         * estados, conservamos la orden como
+         * PENDING_PAYMENT.
+         */
         const updatedOrder =
           await transaction.order.update({
             where: {
               id: currentOrder.id,
             },
-            data: {
-              ...paymentData,
-              status: "PAYMENT_REJECTED",
-            },
+            data: paymentData,
           });
 
         return {
@@ -252,52 +363,50 @@ export const processPaymentNotification = async (
           paymentId: String(payment.id),
           orderNumber,
           status: updatedOrder.status,
+          paymentStatus:
+            payment.status,
         };
+      },
+      {
+        isolationLevel: "Serializable",
       }
+    );
 
-      if (payment.status === "refunded") {
-        const updatedOrder =
-          await transaction.order.update({
-            where: {
-              id: currentOrder.id,
-            },
-            data: {
-              ...paymentData,
-              status: "REFUNDED",
-            },
-          });
+  /*
+   * Los correos se procesan fuera de la
+   * transacción del pago y del stock.
+   *
+   * Si Resend falla, la orden continúa PAID.
+   */
+  if (payment.status !== "approved") {
+    return transactionResult;
+  }
 
-        return {
-          updated: true,
-          paymentId: String(payment.id),
-          orderNumber,
-          status: updatedOrder.status,
-        };
-      }
+  try {
+    const emailResult =
+      await sendOrderConfirmationEmails(
+        orderNumber
+      );
 
-      /*
-       * Para pending, in_process u otros estados,
-       * actualizamos los datos del proveedor, pero la orden
-       * continúa como PENDING_PAYMENT.
-       */
-      const updatedOrder =
-        await transaction.order.update({
-          where: {
-            id: currentOrder.id,
-          },
-          data: paymentData,
-        });
+    return {
+      ...transactionResult,
+      emails: emailResult,
+    };
+  } catch (error) {
+    const emailError =
+      getErrorMessage(error);
 
-      return {
-        updated: true,
-        paymentId: String(payment.id),
-        orderNumber,
-        status: updatedOrder.status,
-        paymentStatus: payment.status,
-      };
-    },
-    {
-      isolationLevel: "Serializable",
-    }
-  );
+    await saveGeneralEmailError(
+      order.id,
+      emailError
+    );
+
+    return {
+      ...transactionResult,
+      emails: {
+        completed: false,
+        error: emailError,
+      },
+    };
+  }
 };
