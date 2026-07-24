@@ -58,27 +58,31 @@ function Hero() {
 
       <div className="hero-container">
         <div className="hero-copy">
-          <span className="hero-eyebrow">
-            Bienestar para tu día a día
-          </span>
-
-          <h1>
-            <span className="cerebria-font">
-              Cerebria®
+          {/* Solamente este bloque se moverá en móvil */}
+          <div className="hero-text">
+            <span className="hero-eyebrow">
+              Bienestar para tu día a día
             </span>
 
-            <span className="hero-line">
-              Tu mente activa,
-              <br />
-              tu vida plena
-            </span>
-          </h1>
+            <h1>
+              <span className="cerebria-font">
+                Cerebria®
+              </span>
 
-          <p className="hero-description">
-            Suplemento alimentario con Omega 3, vitaminas y minerales,
-            desarrollado para complementar tu rutina diaria.
-          </p>
+              <span className="hero-line">
+                Tu mente activa,
+                <br />
+                tu vida plena
+              </span>
+            </h1>
 
+            <p className="hero-description">
+              Suplemento alimentario con Omega 3, vitaminas y minerales,
+              desarrollado para complementar tu rutina diaria.
+            </p>
+          </div>
+
+          {/* Los botones mantienen su posición original */}
           <div className="hero-actions">
             <Link
               to="/comprar"
@@ -100,6 +104,7 @@ function Hero() {
             </Link>
           </div>
 
+          {/* La nota también conserva su posición original */}
           <p className="hero-shipping-note">
             Despacho en Santiago y envíos a regiones.
           </p>
@@ -107,24 +112,26 @@ function Hero() {
       </div>
 
       <div className="hero-info">
-        {productDetails.map(({ id, title, description, Icon }) => (
-          <div
-            key={id}
-            className="hero-info-item"
-          >
-            <div className="hero-icon-wrap">
-              <Icon
-                className="hero-icon"
-                aria-hidden="true"
-              />
-            </div>
+        {productDetails.map(
+          ({ id, title, description, Icon }) => (
+            <div
+              key={id}
+              className="hero-info-item"
+            >
+              <div className="hero-icon-wrap">
+                <Icon
+                  className="hero-icon"
+                  aria-hidden="true"
+                />
+              </div>
 
-            <div className="hero-info-content">
-              <strong>{title}</strong>
-              <small>{description}</small>
+              <div className="hero-info-content">
+                <strong>{title}</strong>
+                <small>{description}</small>
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        )}
       </div>
     </section>
   );

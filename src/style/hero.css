@@ -497,6 +497,11 @@
   .hero-copy {
     max-width: 390px;
   }
+  
+  .hero-text{
+    transform: translateX(12px);
+    margin-top: 5px;
+  }
 
   .hero-eyebrow {
     margin-bottom: 15px;
@@ -597,7 +602,7 @@
   }
 
   .cerebria-font {
-    font-size: clamp(2rem, 10vw, 2.5rem);
+    font-size: clamp(2rem, 10vw, 2.0rem);
   }
 
   .hero-line {
