@@ -84,7 +84,7 @@
   z-index: 3;
   font-size: 3.5rem;
   font-family: 'Protest Riot', cursive;
-  color: #d67b19;
+  color: #ff5e00;
   white-space: nowrap;
   text-shadow: 0 4px 14px rgba(0,0,0,.08);
 }
@@ -97,7 +97,7 @@
   bottom: -6px;
   height: 4px;
   border-radius: 999px;
-  background: linear-gradient(90deg, transparent, #ff7700, transparent);
+  background: linear-gradient(90deg, transparent, #ff5e00, transparent);
   opacity: .65;
 }
 /* mobil*/
