@@ -23,14 +23,16 @@ function CartPage() {
   return (
     <main className="cart-page">
       <section className="cart-page-container">
-        <div className="cart-page-header">
+        <header className="cart-page-header">
           <span>Carrito</span>
+
           <h1>Carrito de compras</h1>
+
           <p>
             Revisa tus productos antes de continuar al checkout. El despacho se
             calculará automáticamente según tu comuna en el siguiente paso.
           </p>
-        </div>
+        </header>
 
         <div className="cart-page-layout">
           <div className="cart-items-list">
@@ -45,7 +47,10 @@ function CartPage() {
             ))}
           </div>
 
-          <CartSummary cartTotal={cartTotal} onClearCart={clearCart} />
+          <CartSummary
+            cartTotal={cartTotal}
+            onClearCart={clearCart}
+          />
         </div>
       </section>
     </main>

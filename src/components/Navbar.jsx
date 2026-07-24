@@ -1,9 +1,11 @@
 import { useState } from "react";
-import "../style/navbar.css";
-import logo from "../assets/img/logo-blanco.png";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext";
 import { ShoppingCart, Menu, X } from "lucide-react";
+
+import { useCart } from "../context/CartContext";
+
+import logo from "../assets/img/logo-blanco.png";
+import "../style/navbar.css";
 
 function Navbar() {
   const { cartCount } = useCart();
@@ -16,46 +18,78 @@ function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="logo" onClick={closeMenu}>
-          <img src={logo} alt="Cerebria" />
+        <Link
+          to="/"
+          className="logo"
+          onClick={closeMenu}
+        >
+          <img
+            src={logo}
+            alt="Cerebria"
+          />
         </Link>
 
         <nav
           className={`nav-links ${menuOpen ? "open" : ""}`}
           aria-label="Navegación principal"
         >
-          <a href="/#inicio" onClick={closeMenu}>
+          <a
+            href="/#inicio"
+            onClick={closeMenu}
+          >
             Inicio
           </a>
 
-          <a href="/#beneficios" onClick={closeMenu}>
+          <a
+            href="/#beneficios"
+            onClick={closeMenu}
+          >
             Beneficios
           </a>
 
-          <Link to="/producto" onClick={closeMenu}>
+          <Link
+            to="/comprar"
+            onClick={closeMenu}
+          >
             Producto
           </Link>
         </nav>
 
         <div className="navbar-actions">
-          <Link to="/carrito" className="cart-btn" onClick={closeMenu}>
-            <ShoppingCart />
+          <Link
+            to="/carrito"
+            className="cart-btn"
+            onClick={closeMenu}
+          >
+            <ShoppingCart aria-hidden="true" />
 
             <span>Carrito</span>
 
             {cartCount > 0 && (
-              <span className="cart-badge">{cartCount}</span>
+              <span className="cart-badge">
+                {cartCount}
+              </span>
             )}
           </Link>
 
           <button
             type="button"
             className="menu-toggle"
-            onClick={() => setMenuOpen((prev) => !prev)}
-            aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
+            onClick={() =>
+              setMenuOpen((previousState) => !previousState)
+            }
+            aria-label={
+              menuOpen
+                ? "Cerrar menú"
+                : "Abrir menú"
+            }
             aria-expanded={menuOpen}
           >
-            {menuOpen ? <X /> : <Menu />}
+            {menuOpen ? (
+              <X aria-hidden="true" />
+            ) : (
+              <Menu aria-hidden="true" />
+            )}
           </button>
         </div>
       </div>

@@ -1,62 +1,34 @@
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useCart } from "../context/CartContext";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
-import productImage from "../assets/img/img-producto.png";
 import nutritionImage from "../assets/img/Cerebria-Etiqueta_page-0001.jpg";
 
 import "../style/product.css";
 
+const ingredients = [
+  "Omega 3",
+  "Vitaminas esenciales",
+  "Minerales de apoyo nutricional",
+  "Formato líquido de fácil consumo",
+  "No contiene azúcar",
+];
+
 function Product() {
-  const navigate = useNavigate();
-  const { addToCart } = useCart();
-
-  const listRef = useRef(null);
-
   const [showNutrition, setShowNutrition] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-
-  const product = {
-    id: 1,
-    name: "Cerebria® Jarabe 200ml",
-    price: 20000,
-    image: productImage,
-  };
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant",
+      behavior: "auto",
     });
   }, []);
 
   useEffect(() => {
-    const currentList = listRef.current;
-
-    if (!currentList) return undefined;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          currentList.classList.add("show");
-          observer.unobserve(currentList);
-        }
-      },
-      {
-        threshold: 0.25,
-      }
-    );
-
-    observer.observe(currentList);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!showNutrition) return undefined;
+    if (!showNutrition) {
+      return undefined;
+    }
 
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -73,30 +45,8 @@ function Product() {
     };
   }, [showNutrition]);
 
-  const increaseQuantity = () => {
-    setQuantity((previousQuantity) => previousQuantity + 1);
-  };
-
-  const decreaseQuantity = () => {
-    setQuantity((previousQuantity) =>
-      Math.max(1, previousQuantity - 1)
-    );
-  };
-
-  const handleAddToCart = () => {
-    addToCart({
-      ...product,
-      quantity,
-    });
-  };
-
-  const handleBuyNow = () => {
-    addToCart({
-      ...product,
-      quantity,
-    });
-
-    navigate("/carrito");
+  const openNutritionModal = () => {
+    setShowNutrition(true);
   };
 
   const closeNutritionModal = () => {
@@ -105,125 +55,101 @@ function Product() {
 
   return (
     <main className="product-page">
-      <section className="product" id="producto">
-        <div className="product-container">
-          {/* Título del producto */}
-          <header className="product-intro">
-            <span className="product-eyebrow">
-              Producto Cerebria®
-            </span>
+      <section
+        className="product-details"
+        id="producto"
+      >
+        <div className="product-details__container">
+          <header className="product-details__header">
+            <span>Información del producto</span>
 
-            <h1>Cerebria® Jarabe 200ml</h1>
+            <h1>
+              Conoce su composición y presentación
+            </h1>
+
+            <p>
+              Revisa las características principales de Cerebria® antes de
+              continuar hacia la página de compra.
+            </p>
           </header>
 
-          {/* Imagen principal */}
-          <div className="product-image-column">
-            <div className="product-image-box">
-              <img
-                src={productImage}
-                alt="Frasco de suplemento alimentario Cerebria"
-              />
-            </div>
-          </div>
+          <div className="product-details__layout">
+            <article className="product-composition">
+              <span className="product-details__label">
+                Composición
+              </span>
 
-          {/* Información del producto */}
-          <div className="product-content">
-            <p className="product-description">
-              Suplemento alimentario formulado con Omega 3, vitaminas y
-              minerales, pensado para apoyar la salud cerebral, la memoria y
-              la concentración en adultos.
-            </p>
-
-            {/* Precio y cantidad */}
-            <div className="product-price-row">
-              <p className="product-price">
-                ${product.price.toLocaleString("es-CL")}
-              </p>
-
-              <div className="quantity-box quantity-box-inline">
-                <span className="quantity-label">
-                  Cantidad
-                </span>
-
-                <div className="quantity-control">
-                  <button
-                    type="button"
-                    className="quantity-btn"
-                    onClick={decreaseQuantity}
-                    disabled={quantity === 1}
-                    aria-label="Disminuir cantidad"
-                  >
-                    −
-                  </button>
-
-                  <strong
-                    className="quantity-number"
-                    aria-live="polite"
-                  >
-                    {quantity}
-                  </strong>
-
-                  <button
-                    type="button"
-                    className="quantity-btn"
-                    onClick={increaseQuantity}
-                    aria-label="Aumentar cantidad"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Ingredientes */}
-            <div className="ingredients">
               <h2>Ingredientes principales</h2>
 
-              <ul
-                className="ingredient-list"
-                ref={listRef}
-              >
-                <li>Omega 3</li>
-                <li>Vitaminas esenciales</li>
-                <li>Minerales de apoyo nutricional</li>
-                <li>Formato líquido de fácil consumo</li>
-                <li>No contiene azúcar</li>
+              <ul className="product-composition__list">
+                {ingredients.map((ingredient) => (
+                  <li key={ingredient}>
+                    <span aria-hidden="true">✓</span>
+                    {ingredient}
+                  </li>
+                ))}
               </ul>
-            </div>
+            </article>
 
-            {/* Acciones de compra */}
-            <div className="product-purchase">
+            <aside className="product-presentation">
+              <span className="product-details__label">
+                Presentación
+              </span>
+
+              <h2>Información general</h2>
+
+              <dl className="product-presentation__list">
+                <div>
+                  <dt>Contenido</dt>
+                  <dd>200 ml</dd>
+                </div>
+
+                <div>
+                  <dt>Formato</dt>
+                  <dd>Jarabe líquido</dd>
+                </div>
+
+                <div>
+                  <dt>Uso</dt>
+                  <dd>Rutina diaria</dd>
+                </div>
+
+                <div>
+                  <dt>Dirigido a</dt>
+                  <dd>Adultos</dd>
+                </div>
+              </dl>
+
               <button
                 type="button"
-                className="nutrition-btn"
-                onClick={() => setShowNutrition(true)}
+                className="product-presentation__button"
+                onClick={openNutritionModal}
               >
-                Ver información nutricional
+                Consultar información nutricional
               </button>
+            </aside>
+          </div>
 
-              <div className="product-buttons">
-                <button
-                  type="button"
-                  className="product-btn-secondary"
-                  onClick={handleAddToCart}
-                >
-                  Agregar al carrito
-                </button>
+          <div className="product-details__cta">
+            <div>
+              <span>¿Quieres adquirir Cerebria®?</span>
 
-                <button
-                  type="button"
-                  className="product-btn"
-                  onClick={handleBuyNow}
-                >
-                  Comprar ahora
-                </button>
-              </div>
+              <p>
+                Consulta el precio, stock disponible y opciones de despacho.
+              </p>
             </div>
+
+            <Link
+              to="/comprar"
+              className="product-details__cta-button"
+            >
+              Ir a la página de compra
+              <ArrowRight aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Modal de información nutricional */}
       {showNutrition && (
         <div
           className="nutrition-modal"
@@ -236,21 +162,24 @@ function Product() {
             className="nutrition-box"
             onClick={(event) => event.stopPropagation()}
           >
-            <h2
-              id="nutrition-modal-title"
-              className="nutrition-modal-title"
-            >
-              Información nutricional
-            </h2>
+            <header className="nutrition-modal-header">
+              <div>
+                <span>Producto Cerebria®</span>
 
-            <button
-              type="button"
-              className="nutrition-close"
-              onClick={closeNutritionModal}
-              aria-label="Cerrar información nutricional"
-            >
-              ×
-            </button>
+                <h2 id="nutrition-modal-title">
+                  Información nutricional
+                </h2>
+              </div>
+
+              <button
+                type="button"
+                className="nutrition-close"
+                onClick={closeNutritionModal}
+                aria-label="Cerrar información nutricional"
+              >
+                ×
+              </button>
+            </header>
 
             <img
               src={nutritionImage}
