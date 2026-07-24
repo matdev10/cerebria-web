@@ -1,0 +1,251 @@
+/* =========================================================
+   CHECKOUT
+========================================================= */
+
+.checkout-page{
+  min-height: 100vh;
+  padding: 125px 20px 90px;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(62, 147, 147, 0.1),
+      transparent 35%
+    ),
+    #f8fafc;
+}
+
+.checkout-container{
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.checkout-header{
+  margin-bottom: 34px;
+}
+
+.checkout-title{
+  margin: 0;
+
+  color: #071426;
+
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.checkout-subtitle{
+  max-width: 650px;
+  margin: 12px 0 0;
+
+  color: #64748b;
+
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   DISTRIBUCIÓN PRINCIPAL
+========================================================= */
+
+.checkout-layout{
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(320px, 380px);
+
+  align-items: start;
+  gap: 32px;
+}
+
+.checkout-form-column{
+  min-width: 0;
+
+  display: grid;
+  gap: 24px;
+}
+
+.checkout-summary-column{
+  min-width: 0;
+
+  position: sticky;
+  top: 110px;
+}
+
+
+/* Evita que tarjetas internas superen sus columnas */
+.checkout-form-column > *,
+.checkout-summary-column > *{
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   FORMULARIOS
+========================================================= */
+
+.checkout-form-column input,
+.checkout-form-column select,
+.checkout-form-column textarea{
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+}
+
+.checkout-form-column textarea{
+  resize: vertical;
+}
+
+.checkout-form-column button{
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px){
+
+  .checkout-page{
+    padding: 115px 20px 75px;
+  }
+
+  .checkout-layout{
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .checkout-form-column{
+    order: 1;
+  }
+
+  .checkout-summary-column{
+    position: static;
+    top: auto;
+
+    order: 2;
+  }
+
+  .checkout-summary-column > *{
+    position: static !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px){
+
+  .checkout-page{
+    padding: 105px 14px 60px;
+  }
+
+  .checkout-container{
+    width: 100%;
+  }
+
+  .checkout-header{
+    margin-bottom: 24px;
+  }
+
+  .checkout-title{
+    font-size: clamp(1.9rem, 9vw, 2.35rem);
+  }
+
+  .checkout-subtitle{
+    font-size: 0.94rem;
+  }
+
+  .checkout-layout{
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .checkout-form-column,
+  .checkout-summary-column{
+    width: 100%;
+    min-width: 0;
+  }
+
+  .checkout-form-column{
+    gap: 20px;
+  }
+
+  /*
+    Corrige anchos fijos o posiciones sticky
+    que puedan existir dentro de OrderSummary.
+  */
+  .checkout-summary-column,
+  .checkout-summary-column > *{
+    position: static !important;
+
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    transform: none !important;
+  }
+
+  /*
+    Impide que campos internos mantengan
+    columnas o anchos de escritorio.
+  */
+  .checkout-form-column form,
+  .checkout-form-column section,
+  .checkout-form-column article,
+  .checkout-form-column div{
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .checkout-form-column input,
+  .checkout-form-column select,
+  .checkout-form-column textarea{
+    min-height: 48px;
+
+    font-size: 16px;
+  }
+
+  .checkout-form-column textarea{
+    min-height: 100px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px){
+
+  .checkout-page{
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .checkout-title{
+    font-size: 1.9rem;
+  }
+
+  .checkout-layout{
+    gap: 18px;
+  }
+}

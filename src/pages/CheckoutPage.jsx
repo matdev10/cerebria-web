@@ -10,11 +10,12 @@ import { getShippingQuote } from "../services/shippingApiService";
 import { buildOrderPayload } from "../services/checkoutService";
 import { createPaymentPreference } from "../services/paymentApiService";
 
+import "../style/checkout.css";
+
 function CheckoutPage() {
   const {
     cartItems = [],
     cartTotal = 0,
-    clearCart,
   } = useCart();
 
   const [customer, setCustomer] = useState({
@@ -43,15 +44,29 @@ function CheckoutPage() {
   const [processingOrder, setProcessingOrder] =
     useState(false);
   const [orderError, setOrderError] = useState("");
-  const [confirmedOrder, setConfirmedOrder] =
-    useState(null);
 
   const shippingCost = shippingQuote?.available
     ? Number(shippingQuote.cost)
     : 0;
 
-  const checkoutTotal = Number(cartTotal) + shippingCost;
+  const checkoutTotal =
+    Number(cartTotal) + shippingCost;
 
+  /*
+    Lleva el checkout al comienzo cuando se abre la ruta.
+  */
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+  }, []);
+
+  /*
+    Calcula el despacho cuando el usuario selecciona
+    una comuna.
+  */
   useEffect(() => {
     const loadShippingQuote = async () => {
       if (!shipping.communeId) {
@@ -71,7 +86,10 @@ function CheckoutPage() {
 
         setShippingQuote(quote);
       } catch (error) {
-        console.error("Error calculando envío:", error);
+        console.error(
+          "Error calculando envío:",
+          error
+        );
 
         setShippingQuote(null);
         setShippingError(
@@ -211,13 +229,13 @@ function CheckoutPage() {
 
       const paymentUrl = response.initPoint;
 
-if (!paymentUrl) {
-  throw new Error(
-    "Mercado Pago no devolvió una dirección para continuar el pago."
-  );
-}
+      if (!paymentUrl) {
+        throw new Error(
+          "Mercado Pago no devolvió una dirección para continuar el pago."
+        );
+      }
 
-window.location.assign(paymentUrl);
+      window.location.assign(paymentUrl);
     } catch (error) {
       console.error(
         "Error registrando pedido:",
@@ -234,211 +252,66 @@ window.location.assign(paymentUrl);
     }
   };
 
-  if (confirmedOrder) {
-    return (
-      <main
-        style={{
-          minHeight: "100vh",
-          background: "#f8fafc",
-          padding: "140px 20px 80px",
-        }}
-      >
-        <section
-          style={{
-            maxWidth: "720px",
-            margin: "0 auto",
-            padding: "40px",
-            borderRadius: "24px",
-            border: "1px solid #dbe4ee",
-            background: "#ffffff",
-            boxShadow:
-              "0 20px 50px rgba(15, 23, 42, 0.08)",
-            textAlign: "center",
-          }}
-        >
-          <div
-            style={{
-              width: "72px",
-              height: "72px",
-              margin: "0 auto 24px",
-              display: "grid",
-              placeItems: "center",
-              borderRadius: "50%",
-              background: "#dcfce7",
-              color: "#166534",
-              fontSize: "34px",
-              fontWeight: "900",
-            }}
-          >
-            ✓
-          </div>
-
-          <p
-            style={{
-              margin: "0 0 10px",
-              color: "#64748b",
-              fontSize: "14px",
-              fontWeight: "800",
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-            }}
-          >
-            Pedido registrado
-          </p>
-
-          <h1
-            style={{
-              margin: "0 0 16px",
-              color: "#0f172a",
-              fontSize: "clamp(30px, 5vw, 44px)",
-              lineHeight: "1.1",
-            }}
-          >
-            Gracias, {confirmedOrder.customerName}
-          </h1>
-
-          <p
-            style={{
-              margin: "0 auto",
-              maxWidth: "560px",
-              color: "#475569",
-              fontSize: "17px",
-              lineHeight: "1.7",
-            }}
-          >
-            Recibimos correctamente tu pedido. Nos
-            pondremos en contacto contigo para confirmar
-            el pago y coordinar la entrega.
-          </p>
-
-          <div
-            style={{
-              marginTop: "30px",
-              padding: "22px",
-              borderRadius: "16px",
-              background: "#f8fafc",
-              border: "1px solid #e2e8f0",
-              textAlign: "left",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "20px",
-                marginBottom: "14px",
-              }}
-            >
-              <span style={{ color: "#64748b" }}>
-                Número de pedido
-              </span>
-
-              <strong
-                style={{
-                  color: "#0f172a",
-                  overflowWrap: "anywhere",
-                  textAlign: "right",
-                }}
-              >
-                {confirmedOrder.orderReference}
-              </strong>
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "20px",
-                marginBottom: "14px",
-              }}
-            >
-              <span style={{ color: "#64748b" }}>
-                Correo
-              </span>
-
-              <strong
-                style={{
-                  color: "#0f172a",
-                  textAlign: "right",
-                }}
-              >
-                {confirmedOrder.customerEmail}
-              </strong>
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "20px",
-                paddingTop: "14px",
-                borderTop: "1px solid #e2e8f0",
-              }}
-            >
-              <span
-                style={{
-                  color: "#0f172a",
-                  fontWeight: "800",
-                }}
-              >
-                Total del pedido
-              </span>
-
-              <strong
-                style={{
-                  color: "#0f172a",
-                  fontSize: "20px",
-                }}
-              >
-                $
-                {Number(
-                  confirmedOrder.total
-                ).toLocaleString("es-CL")}
-              </strong>
-            </div>
-          </div>
-
-          <a
-            href="/"
-            style={{
-              marginTop: "28px",
-              display: "inline-flex",
-              minHeight: "48px",
-              padding: "0 24px",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "12px",
-              background: "#0f172a",
-              color: "#ffffff",
-              fontWeight: "800",
-              textDecoration: "none",
-            }}
-          >
-            Volver al inicio
-          </a>
-        </section>
-      </main>
-    );
-  }
-
+  /*
+    Estado cuando el carrito está vacío.
+  */
   if (cartItems.length === 0) {
     return (
-      <main
-        style={{
-          minHeight: "100vh",
-          background: "#f8fafc",
-          padding: "120px 20px 80px",
-        }}
-      >
-        <section
-          style={{
-            maxWidth: "1180px",
-            margin: "0 auto",
-          }}
-        >
-          <h1>Checkout</h1>
-          <p>No hay productos en el carrito.</p>
-        </section>
+      <main className="checkout-page">
+        <div className="checkout-container">
+          <section
+            style={{
+              maxWidth: "680px",
+              margin: "0 auto",
+              padding: "36px",
+              border: "1px solid #e2e8f0",
+              borderRadius: "24px",
+              background: "#ffffff",
+              textAlign: "center",
+              boxShadow:
+                "0 20px 50px rgba(15, 23, 42, 0.07)",
+            }}
+          >
+            <h1
+              className="checkout-title"
+              style={{
+                marginBottom: "14px",
+              }}
+            >
+              Tu carrito está vacío
+            </h1>
+
+            <p
+              style={{
+                margin: 0,
+                color: "#64748b",
+                lineHeight: "1.6",
+              }}
+            >
+              Agrega un producto antes de continuar con
+              el checkout.
+            </p>
+
+            <a
+              href="/producto"
+              style={{
+                minHeight: "48px",
+                marginTop: "24px",
+                padding: "0 24px",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "999px",
+                background: "#0f172a",
+                color: "#ffffff",
+                fontWeight: "800",
+                textDecoration: "none",
+              }}
+            >
+              Ver producto
+            </a>
+          </section>
+        </div>
       </main>
     );
   }
@@ -449,32 +322,23 @@ window.location.assign(paymentUrl);
     !shippingQuote?.available;
 
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#f8fafc",
-        padding: "120px 20px 80px",
-      }}
-    >
-      <section
-        style={{
-          maxWidth: "1180px",
-          margin: "0 auto",
-        }}
-      >
-        <h1>Finalizar pedido</h1>
+    <main className="checkout-page">
+      <div className="checkout-container">
+        <header className="checkout-header">
+          <h1 className="checkout-title">
+            Finalizar pedido
+          </h1>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              "minmax(0, 1fr) 360px",
-            gap: "32px",
-            alignItems: "start",
-            marginTop: "32px",
-          }}
-        >
-          <div>
+          <p className="checkout-subtitle">
+            Completa tus datos de contacto y dirección
+            para calcular el despacho y continuar con el
+            pago.
+          </p>
+        </header>
+
+        <div className="checkout-layout">
+          {/* Columna de formularios */}
+          <div className="checkout-form-column">
             <CustomerForm
               customer={customer}
               onChange={handleCustomerChange}
@@ -494,7 +358,6 @@ window.location.assign(paymentUrl);
               <div
                 role="alert"
                 style={{
-                  marginTop: "24px",
                   padding: "14px 16px",
                   borderRadius: "12px",
                   background: "#fef2f2",
@@ -513,16 +376,18 @@ window.location.assign(paymentUrl);
               onClick={handleSubmitOrder}
               disabled={orderButtonDisabled}
               style={{
-                marginTop: "24px",
                 width: "100%",
-                padding: "16px",
+                minHeight: "54px",
+                padding: "14px 18px",
                 border: "none",
                 borderRadius: "12px",
                 background: processingOrder
                   ? "#64748b"
                   : "#0f172a",
                 color: "#ffffff",
-                fontWeight: "700",
+                fontFamily: "inherit",
+                fontSize: "16px",
+                fontWeight: "800",
                 cursor: orderButtonDisabled
                   ? "not-allowed"
                   : "pointer",
@@ -535,34 +400,37 @@ window.location.assign(paymentUrl);
                 ? "Registrando pedido..."
                 : loadingShipping
                   ? "Calculando despacho..."
-                  : "Confirmar pedido"}
+                  : "Continuar con Mercado Pago"}
             </button>
 
             <p
               style={{
-                margin: "12px 0 0",
+                margin: 0,
                 color: "#64748b",
                 fontSize: "14px",
                 lineHeight: "1.5",
                 textAlign: "center",
               }}
             >
-              Una vez registrado el pedido, nos
-              comunicaremos contigo para confirmar el
-              pago y la entrega.
+              Al continuar, serás redirigido de forma
+              segura a Mercado Pago para completar el
+              pago.
             </p>
           </div>
 
-          <OrderSummary
-            cartItems={cartItems}
-            cartTotal={cartTotal}
-            shippingQuote={shippingQuote}
-            loadingShipping={loadingShipping}
-            shippingError={shippingError}
-            checkoutTotal={checkoutTotal}
-          />
+          {/* Columna del resumen */}
+          <aside className="checkout-summary-column">
+            <OrderSummary
+              cartItems={cartItems}
+              cartTotal={cartTotal}
+              shippingQuote={shippingQuote}
+              loadingShipping={loadingShipping}
+              shippingError={shippingError}
+              checkoutTotal={checkoutTotal}
+            />
+          </aside>
         </div>
-      </section>
+      </div>
     </main>
   );
 }
