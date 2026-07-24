@@ -209,9 +209,6 @@ export const processPaymentNotification = async (
             },
           });
 
-        console.log(
-          `Pago ${payment.id} aprobado. Orden ${orderNumber} actualizada a PAID.`
-        );
 
         return {
           updated: true,

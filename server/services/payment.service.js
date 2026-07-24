@@ -26,8 +26,6 @@ const frontendUrl =
   process.env.FRONTEND_URL?.trim() ||
   "http://localhost:5173";
 
-
-
 export const createPaymentPreference = async ({
   orderReference,
   customer,
@@ -50,7 +48,10 @@ export const createPaymentPreference = async ({
     );
   }
 
-  if (!Array.isArray(items) || items.length === 0) {
+  if (
+    !Array.isArray(items) ||
+    items.length === 0
+  ) {
     throw new Error(
       "La preferencia debe contener al menos un producto"
     );
@@ -86,7 +87,6 @@ export const createPaymentPreference = async ({
       body: {
         items: preferenceItems,
 
-
         ...(frontendUrl.startsWith("https://") && {
           back_urls: {
             success: `${frontendUrl}/pago/exitoso`,
@@ -96,28 +96,17 @@ export const createPaymentPreference = async ({
           auto_return: "approved",
         }),
 
-        external_reference: String(orderReference),
+        external_reference: String(
+          orderReference
+        ),
 
         metadata: {
-          order_reference: String(orderReference),
+          order_reference: String(
+            orderReference
+          ),
         },
       },
     });
-
-  console.log("================================");
-  console.log(
-    "TOKEN USER:",
-    accessToken.substring(0, 20) + "..."
-  );
-  console.log(
-    "Collector:",
-    preference.collector_id
-  );
-  console.log(
-    "Preference:",
-    preference.id
-  );
-  console.log("================================");
 
   return {
     preferenceId: preference.id,
